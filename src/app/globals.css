@@ -1,26 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500&display=swap');
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080808;
+  --foreground: #d4cfc5;
+  --gold: #c9a84c;
+  --gold-light: #e8c97e;
+  --cream: #f0ead8;
+  --surface: #141414;
+  --deep: #0e0e0e;
+  --muted: #6a6a6a;
+
+  /* Standardized Spacing System */
+  /* Desktop: h-pad: 80px, v-pad: 140px, title-gap: 64px, eyebrow-gap: 16px */
+  /* Mobile: h-pad: 24px, v-pad: 72px, title-gap: 40px, stack-gap: 32px */
+  --spacing-section-h-desktop: 80px;
+  --spacing-section-v-desktop: 140px;
+  --spacing-title-gap-desktop: 64px;
+  --spacing-eyebrow-gap-desktop: 16px;
+  --spacing-card-pad-desktop-lg: 48px;
+  --spacing-card-pad-desktop-sm: 28px;
+  --spacing-grid-gap-desktop: 12px;
+  
+  --spacing-section-h-mobile: 24px;
+  --spacing-section-v-mobile: 72px;
+  --spacing-title-gap-mobile: 40px;
+  --spacing-stack-gap-mobile: 32px;
+  --spacing-card-pad-mobile-lg: 28px;
+  --spacing-card-pad-mobile-sm: 20px;
+  --spacing-grid-gap-mobile: 8px;
+  
+  --spacing-marquee-pad: 12px;
+
+  /* Fluid Typography Sizes */
+  --text-display: clamp(44px, 8vw, 110px);
+  --text-section-title: clamp(32px, 5vw, 68px);
+  --text-subheading: clamp(22px, 3vw, 38px);
+  --text-card-title: clamp(18px, 2.2vw, 26px);
+  --text-body: clamp(13px, 1.2vw, 15px);
+  --text-label: clamp(8px, 0.9vw, 10px);
+  --text-stat-number: clamp(40px, 6vw, 72px);
+  --text-quote: clamp(16px, 1.8vw, 20px);
+  --text-process-step: clamp(16px, 2vw, 22px);
+
+  /* Fluid Line Heights & Letter Spacing */
+  --lh-display: 1.2;
+  --lh-section-title: 1.3;
+  --lh-subheading: 1.4;
+  --lh-body: 1.6;
+  --lh-quote: 1.7;
+  --ls-label: clamp(0.5px, 0.08vw, 1px);
+  --ls-label-mobile-safe: 0.05px;
 }
 
+@media (max-width: 768px) {
+  :root {
+    --lh-display: 1.3;
+    --lh-section-title: 1.4;
+    --lh-subheading: 1.5;
+    --lh-body: 1.8;
+    --lh-quote: 1.9;
+    --ls-label: var(--ls-label-mobile-safe);
+  }
+}
+
+/* @theme replaced with standard CSS variables
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Montserrat', sans-serif;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+*/
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
+
+/* ========================================
+   TOUCH-FRIENDLY TAP TARGETS (Min 44×44px)
+   ======================================== */
+/* Ensure all interactive elements meet 44×44px minimum for touch */
+button,
+a,
+input[type="button"],
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Add visual padding without affecting layout for form inputs */
+input,
+textarea,
+select {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/* Ensure nav links have proper touch target sizing */
+@media (max-width: 768px) {
+  a, button {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+  }
+}
+
+/* ========================================
+   iOS INPUT ZOOM PREVENTION
+   Prevent iOS Safari from auto-zooming when focus on inputs
+   ======================================== */
+input,
+textarea,
+select {
+  font-size: 16px !important;
+}
+
+/* Ensure placeholder text is also 16px+ */
+input::placeholder,
+textarea::placeholder {
+  font-size: 16px;
+}
+
+/* ========================================
+   SAFE AREA INSETS (Notch Support)
+   ======================================== */
+@supports (padding: max(0px)) {
+  nav {
+    padding-top: max(20px, env(safe-area-inset-top));
+  }
+  
+  footer {
+    padding-bottom: max(18px, env(safe-area-inset-bottom));
+  }
+  
+  main {
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ========================================
+   MOBILE SCROLL IMPROVEMENTS
+   ======================================== */
+/* Enable smooth scrolling with inertia on iOS */
+.custom-scroll-container,
+[data-scroll="true"],
+.scroll-snap-carousel {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Scroll snap carousel for mobile series cards */
+@media (max-width: 768px) {
+  .scroll-snap-carousel {
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    -webkit-overflow-scrolling: touch;
+    /* Hide scrollbar while keeping functionality */
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
+    -ms-overflow-style: none;
+  }
+  
+  .scroll-snap-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scroll-snap-item {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    flex: 0 0 85vw;
+    margin-right: 16px;
+    min-width: 85vw;
+  }
+}
+
+/* ========================================
+   HOVER STATES ON MOBILE (No Hover on Touch)
+   Remove hover-triggered animations on touch devices
+   ======================================== */
+@media (hover: hover) {
+  /* Desktop hover states - only apply if device supports hover */
+}
+
+@media (hover: none) and (pointer: coarse) {
+  /* Touch device specific styles - hide hover-only elements */
+  /* Series card overlay text should always be visible on mobile */
+  .series-card-overlay {
+    opacity: 1 !important;
+  }
+  
+  .portfolio-item-overlay {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Disable scale animations on touch devices */
+  @supports (animation-duration: 0s) {
+    * {
+      animation-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ========================================
+   FOCUS STYLES FOR ACCESSIBILITY
+   Provide visible focus indicators with gold color
+   ======================================== */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #c9a84c;
+  outline-offset: 2px;
+}
+
+/* ========================================
+   REDUCED MOTION PREFERENCE
+   Respect prefers-reduced-motion from OS
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid #c9a84c;
+    outline-offset: 1px;
+  }
+  
+  /* Disable parallax and scroll-based animations */
+  .parallax-section {
+    transform: none !important;
+  }
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* Fluid Typography Utility Classes */
+.text-fluid-display {
+  font-size: var(--text-display);
+  line-height: var(--lh-display);
+  letter-spacing: -0.02em;
+}
+
+.text-fluid-section-title {
+  font-size: var(--text-section-title);
+  line-height: var(--lh-section-title);
+  letter-spacing: -0.015em;
+}
+
+.text-fluid-subheading {
+  font-size: var(--text-subheading);
+  line-height: var(--lh-subheading);
+  letter-spacing: -0.01em;
+}
+
+.text-fluid-card-title {
+  font-size: var(--text-card-title);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+}
+
+.text-fluid-body {
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  letter-spacing: 0;
+}
+
+.text-fluid-label {
+  font-size: var(--text-label);
+  line-height: 1.2;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.text-fluid-stat-number {
+  font-size: var(--text-stat-number);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.text-fluid-quote {
+  font-size: var(--text-quote);
+  line-height: var(--lh-quote);
+  letter-spacing: 0;
+  font-style: italic;
+}
+
+.text-fluid-process-step {
+  font-size: var(--text-process-step);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+}
+
+/* ========================================
+   GLOBAL MOBILE SPACING SYSTEM
+   Mobile: 24px horizontal, 72px vertical
+   ======================================== */
+@media (max-width: 768px) {
+  /* Global mobile padding for all sections */
+  section {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+  }
+
+  /* Ensure main content respects safe area */
+  main {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(14, 14, 14, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    gap: 2.5rem;
+  }
+}
+
+/* ========================================
+   ANIMATION KEYFRAMES
+   ======================================== */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.8s infinite;
+}
+
+/* ========================================
+   MARQUEE STRIP COMPONENT STYLING
+   12px padding top/bottom (both mobile & desktop)
+   ======================================== */
+.marquee-strip {
+  width: 100%;
+  padding: 12px 0;
+  overflow: hidden;
+  background: transparent;
+  position: relative;
+}
+
+.marquee-strip .marquee-content {
+  display: flex;
+  gap: 2rem;
+  animation: scroll-left 30s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ========================================
+   STANDARDIZED SECTION SPACING
+   Desktop: 80px h-pad, 140px v-pad
+   Mobile: 24px h-pad, 72px v-pad (set via media query above)
+   ======================================== */
+@media (min-width: 1025px) {
+  section {
+    padding-left: 80px !important;
+    padding-right: 80px !important;
+    padding-top: 140px !important;
+    padding-bottom: 140px !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  section {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+    padding-top: 104px !important;
+    padding-bottom: 104px !important;
+  }
+}
+
+/* ========================================
+   SPACING UTILITY CLASSES
+   Desktop, Tablet, and Mobile breakpoints
+   ======================================== */
+/* Section title gap: 64px desktop, 40px mobile */
+.section-title {
+  margin: 0;
+}
+
+.section-title-gap {
+  gap: 64px;
+}
+
+@media (max-width: 768px) {
+  .section-title-gap {
+    gap: 40px;
+  }
+}
+
+/* Eyebrow/label to title gap: 16px */
+.section-label {
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+/* Card padding: 48px large, 28px small on desktop; 28px/20px on mobile */
+.card-lg {
+  padding: 48px;
+}
+
+@media (max-width: 640px) {
+  .card-lg {
+    padding: 28px;
+  }
+}
+
+.card-sm {
+  padding: 28px;
+}
+
+@media (max-width: 640px) {
+  .card-sm {
+    padding: 20px;
+  }
+}
+
+/* Grid gaps: 12px desktop, 8px mobile */
+.grid-gap-standard {
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .grid-gap-standard {
+    gap: 8px;
+  }
+}
+
+/* Stacked elements gap: 32px on mobile */
+@media (max-width: 768px) {
+  .stacked-gap {
+    gap: 32px;
+  }
 }
