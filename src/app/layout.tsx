@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import PageFade from "@/components/transitions/PageFade";
 import PageTransition from "@/components/transitions/PageTransition";
 import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 import BackToTopButton from "@/components/ui/BackToTopButton";
@@ -24,7 +25,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://elenaram.com'),
+  metadataBase: new URL('https://shigoshots.com'),
   title: {
     default: 'ShigoShots — Photography',
     template: '%s | ShigoShots'
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "ShigoShots",
-      url: "https://elenaram.com"
+      url: "https://shigoshots.com"
     }
   ],
   creator: "ShigoShots",
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     description:
       "Professional photography portfolio — portraits, weddings, editorial and fine art photography based in Lagos, Nigeria.",
     type: "website",
-    url: "https://elenaram.com",
+    url: "https://shigoshots.com",
     siteName: "ShigoShots",
     locale: "en_US",
     images: [
@@ -97,6 +98,9 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "ShigoShots",
   },
+  other: {
+    'X-DNS-Prefetch-Control': 'on',
+  },
 };
 
 export const viewport: Viewport = {
@@ -116,7 +120,7 @@ export default function RootLayout({
     '@type': 'Person',
     name: 'ShigoShots',
     jobTitle: 'Professional Photographer',
-    url: 'https://elenaram.com',
+    url: 'https://shigoshots.com',
     sameAs: [
       'https://instagram.com/shigoshots',
       'https://twitter.com/shigoshots',
@@ -166,7 +170,9 @@ export default function RootLayout({
           }}
           aria-hidden="true"
         />
-        <PageTransition>{children}</PageTransition>
+        <PageFade>
+          <PageTransition>{children}</PageTransition>
+        </PageFade>
         <BackToTopButton />
         <Analytics />
         <SpeedInsights />

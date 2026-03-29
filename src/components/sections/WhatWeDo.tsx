@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Photo } from '@/types'
 import { urlFor } from '@/lib/sanity'
 
-const placeholders: Photo[] = [
+const placeholders: any[] = [
   {
     _id: 'placeholder-1',
     title: 'Portrait Session',
@@ -98,14 +98,14 @@ interface WhatWeDoProps {
 
 export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const displayPhotos = photos?.length > 0 ? photos : placeholders
+  const displayPhotos: any[] = photos?.length > 0 ? photos : placeholders
 
   return (
     <section style={{
       backgroundColor: '#0e0e0e',
       borderTopLeftRadius: '40px',
       borderTopRightRadius: '40px',
-      padding: '80px 24px',
+      padding: '60px 24px 50px 24px',
     }}>
       {/* Header */}
       <motion.div
@@ -279,18 +279,27 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
                 </p>
 
                 {/* Learn more link - reveals on hover */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  color: '#c9a84c',
-                  fontSize: '11px',
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                  opacity: isHovered ? 1 : 0,
-                  transform: isHovered ? 'translateY(0)' : 'translateY(8px)',
-                  transition: 'opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s',
-                }}>
+                <div
+                  onClick={() => {
+                    const contact = document.querySelector('#contact')
+                    if (contact) {
+                      const top = contact.getBoundingClientRect().top + window.scrollY - 72
+                      window.scrollTo({ top, behavior: 'smooth' })
+                    }
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    color: '#c9a84c',
+                    fontSize: '11px',
+                    letterSpacing: '0.2em',
+                    textTransform: 'uppercase',
+                    opacity: isHovered ? 1 : 0,
+                    transform: isHovered ? 'translateY(0)' : 'translateY(8px)',
+                    transition: 'opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s',
+                    cursor: 'pointer',
+                  }}>
                   Learn more
                   <span style={{
                     display: 'inline-block',

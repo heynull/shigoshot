@@ -57,19 +57,16 @@ export default function Hero() {
       id="home"
       style={{
         width: '100%',
-        minWidth: '100%',
         minHeight: '100svh',
         backgroundColor: '#f0f0ee',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        overflowX: 'hidden',
+        overflow: 'hidden',
         margin: 0,
         padding: 0,
         boxSizing: 'border-box',
-        left: 0,
-        right: 0,
       }}
     >
       <motion.div
@@ -135,8 +132,14 @@ export default function Hero() {
 
         {/* CTA Button */}
         <motion.div variants={buttonVariants} style={{ marginTop: "clamp(24px, 5vh, 40px)", margin: "clamp(24px, 5vh, 40px) auto 0" }}>
-          <Link
-            href="#contact"
+          <button
+            onClick={() => {
+              const contact = document.querySelector('#contact')
+              if (contact) {
+                const top = contact.getBoundingClientRect().top + window.scrollY - 72
+                window.scrollTo({ top, behavior: 'smooth' })
+              }
+            }}
             style={{
               display: "inline-block",
               padding: "clamp(12px, 3vw, 16px) clamp(24px, 4vw, 32px)",
@@ -148,6 +151,7 @@ export default function Hero() {
               textDecoration: "none",
               transition: "all 0.3s ease",
               cursor: "pointer",
+              border: "none",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = "#000";
@@ -159,7 +163,7 @@ export default function Hero() {
             }}
           >
             Start your project →
-          </Link>
+          </button>
         </motion.div>
       </motion.div>
     </section>

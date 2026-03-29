@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
     }
 
     const data = validation.data
-    const studioEmail = process.env.CONTACT_EMAIL || 'noreply@elenaram.com'
+    const studioEmail = process.env.CONTACT_EMAIL || 'noreply@shigoshots.com'
 
     // Email A: To studio owner
     const studioEmailHtml = `
@@ -161,13 +161,13 @@ export async function POST(request: NextRequest) {
             <div class="content">
               <p>Dear <span class="gold-accent">${data.firstName}</span>,</p>
 
-              <p>We've received your inquiry and truly appreciate you reaching out to Elena Maris Studio. Your message means a lot to us.</p>
+              <p>We've received your inquiry and truly appreciate you reaching out to ShigoShots Studio. Your message means a lot to us.</p>
 
               <p>Our creative team will review your project details and respond within <span class="gold-accent">48 hours</span> with next steps and availability.</p>
 
               <p>In the meantime, feel free to reach out directly if you have any urgent questions.</p>
 
-              <p>—<br/>Elena Maris<br/>Visual Artist</p>
+              <p>—<br/>ShigoShots<br/>Photography</p>
             </div>
 
             <div class="footer">
@@ -182,15 +182,15 @@ export async function POST(request: NextRequest) {
     // Send both emails via Resend
     const [studioResponse, senderResponse] = await Promise.all([
       resend.emails.send({
-        from: 'noreply@elenaram.com',
-        to: studioEmail,
+        from: 'ShigoShots <onboarding@resend.dev>',
+        to: process.env.CONTACT_EMAIL || 'mosesajila@gmail.com',
         subject: `New Inquiry — ${data.projectType} from ${data.firstName} ${data.lastName}`,
         html: studioEmailHtml,
       }),
       resend.emails.send({
-        from: 'noreply@elenaram.com',
+        from: 'ShigoShots <onboarding@resend.dev>',
         to: data.email,
-        subject: 'Your inquiry has been received — Elena Maris Studio',
+        subject: 'Your inquiry has been received — ShigoShots Studio',
         html: senderEmailHtml,
       }),
     ])

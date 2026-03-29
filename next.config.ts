@@ -2,6 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    localPatterns: [
+      {
+        pathname: '/**',
+        search: '',
+      },
+    ],
     remotePatterns: [
       {
         protocol: "https",
@@ -17,6 +23,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizeCss: true,
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
 };
 

@@ -147,6 +147,7 @@ function StatItem({
       borderTop: '1px solid #1a1a1a',
       borderBottom: '1px solid #1a1a1a',
       width: '100%',
+      padding: '40px 0',
     }}>
       {/* Use Tailwind grid — 2 cols mobile, 4 cols desktop */}
       <div className="grid grid-cols-2 lg:grid-cols-4 w-full">

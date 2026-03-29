@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin', '/private', '/api'],
     },
-    sitemap: 'https://elenaram.com/sitemap.xml',
+    sitemap: 'https://shigoshots.com/sitemap.xml',
   }
 }

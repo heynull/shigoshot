@@ -1,268 +1,295 @@
-"use client";
-
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Services", href: "#services" },
-  { label: "Contact", href: "#contact" },
-];
+'use client'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
 
-  // Track window size
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+    const handleScroll = () => setScrolled(window.scrollY > 80)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
-  // Simple scroll listener
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
-    };
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const handleNavClick = (href: string) => {
+    const target = document.querySelector(href)
+    if (target) {
+      const top = target.getBoundingClientRect().top + window.scrollY - 72
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
+    setMobileOpen(false)
+  }
 
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "unset";
-  }, [mobileOpen]);
+  const navLinks = [
+    { label: 'About', href: '#about' },
+    { label: 'Portfolio', href: '#work' },
+    { label: 'Services', href: '#services' },
+    { label: 'Contact', href: '#contact' },
+  ]
 
-  // Handle Escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMobileOpen(false);
-    };
-    window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, []);
+  const navBg = scrolled 
+    ? 'rgba(8,8,8,0.95)' 
+    : mobileOpen 
+    ? 'rgba(8,8,8,0.98)'
+    : 'rgba(248,246,242,0.98)'
 
-  // Smooth scroll to section
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
-    e.preventDefault();
-    setMobileOpen(false);
-
-    const targetId = href.slice(1);
-    const target = document.getElementById(targetId);
-    if (!target) return;
-
-    const navHeight = 72;
-    const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
-    window.scrollTo({ top, behavior: "smooth" });
-    window.history.pushState(null, "", href);
-  };
-
-  const navBg = scrolled ? "rgba(8, 8, 8, 0.95)" : "#f0f0ee";
-  const textColor = scrolled ? "#ccc" : "#333";
-  const hoverColor = scrolled ? "#fff" : "#000";
+  const linkColor = scrolled ? '#cccccc' : '#333333'
 
   return (
     <>
-      {/* Desktop Navbar */}
+      {/* NAVBAR */}
       <nav
         style={{
-          display: isMobile ? "none" : "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 40px",
-          height: "72px",
-          backgroundColor: navBg,
-          position: "fixed",
+          position: 'fixed',
           top: 0,
           left: 0,
           right: 0,
           zIndex: 1000,
-          transition: "background-color 0.3s ease",
-          backdropFilter: scrolled ? "blur(10px)" : "none",
+          height: '72px',
+          background: navBg,
+          backdropFilter: scrolled ? 'blur(10px)' : 'none',
+          transition: 'background 0.3s ease',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 40px',
         }}
+        className="navbar-container"
       >
-        {/* Logo */}
-        <Link href="#" className="flex items-center gap-3 flex-shrink-0">
-          <div style={{ width: "32px", height: "32px", backgroundColor: "#c9a84c", borderRadius: "4px" }} />
-          <span style={{ fontSize: "18px", fontWeight: 700, color: "#c9a84c", letterSpacing: "0.5px" }}>
-            ShigoShots
-          </span>
+        {/* LOGO */}
+        <Link
+          href="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            textDecoration: 'none',
+            flexShrink: 0,
+            zIndex: 10,
+          }}
+        >
+          <Image
+            src="/logo.png"
+            alt="ShigoShots"
+            width={120}
+            height={40}
+            style={{
+              objectFit: 'contain',
+              filter: scrolled || mobileOpen ? 'none' : 'brightness(0)',
+            }}
+            priority
+          />
         </Link>
 
-        {/* Center Nav Links */}
-        <div style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", display: "flex", gap: "48px" }}>
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
+        {/* DESKTOP NAV LINKS - hidden on mobile */}
+        <div
+          className="hidden md:flex"
+          style={{
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            gap: '40px',
+            alignItems: 'center',
+          }}
+        >
+          {navLinks.map(link => (
+            <button
+              key={link.label}
+              onClick={() => handleNavClick(link.href)}
               style={{
-                color: textColor,
-                fontSize: "14px",
-                fontWeight: 500,
-                textDecoration: "none",
-                cursor: "pointer",
-                transition: "color 0.2s ease",
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: linkColor,
+                fontSize: '14px',
+                fontWeight: 400,
+                padding: '4px 0',
+                transition: 'color 0.2s ease',
+                fontFamily: 'Montserrat, sans-serif',
               }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = hoverColor)}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = textColor)}
+              onMouseEnter={e => e.currentTarget.style.color = '#c9a84c'}
+              onMouseLeave={e => e.currentTarget.style.color = linkColor}
             >
               {link.label}
-            </a>
+            </button>
           ))}
         </div>
 
-        {/* CTA Button */}
+        {/* DESKTOP CTA - hidden on mobile */}
         <button
-          onClick={(e) => handleNavClick(e, "#contact")}
+          className="hidden md:block"
+          onClick={() => handleNavClick('#contact')}
           style={{
-            background: "#c9a84c",
-            color: "#000",
-            border: "none",
-            borderRadius: "50px",
-            padding: "12px 24px",
-            fontSize: "14px",
+            background: scrolled ? 'transparent' : '#000000',
+            color: '#ffffff',
+            border: scrolled ? '1px solid rgba(255,255,255,0.4)' : 'none',
+            borderRadius: '50px',
+            padding: '12px 24px',
+            fontSize: '14px',
             fontWeight: 600,
-            cursor: "pointer",
-            transition: "background-color 0.2s ease",
-            display: isMobile ? "none" : "flex",
-            alignItems: "center",
-            gap: "6px",
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            fontFamily: 'Montserrat, sans-serif',
+            flexShrink: 0,
           }}
-          onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#b8962e")}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#c9a84c")}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = '#c9a84c'
+            e.currentTarget.style.color = '#000'
+            e.currentTarget.style.border = '1px solid #c9a84c'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = scrolled ? 'transparent' : '#000000'
+            e.currentTarget.style.color = '#ffffff'
+            e.currentTarget.style.border = scrolled ? '1px solid rgba(255,255,255,0.4)' : 'none'
+          }}
         >
-          Book a session <span>→</span>
+          Book a session →
+        </button>
+
+        {/* HAMBURGER - shown on mobile only */}
+        <button
+          className="flex md:hidden"
+          onClick={() => setMobileOpen(prev => !prev)}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '8px',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '5px',
+            zIndex: 1001,
+            flexShrink: 0,
+          }}
+        >
+          {mobileOpen ? (
+            <span style={{
+              color: 'white',
+              fontSize: '28px',
+              lineHeight: 1,
+              display: 'block',
+            }}>
+              ×
+            </span>
+          ) : (
+            <>
+              <span style={{
+                display: 'block',
+                width: '24px',
+                height: '2px',
+                background: scrolled ? 'white' : '#1a1a1a',
+                transition: 'background 0.3s ease',
+              }} />
+              <span style={{
+                display: 'block',
+                width: '24px',
+                height: '2px',
+                background: scrolled ? 'white' : '#1a1a1a',
+                transition: 'background 0.3s ease',
+              }} />
+              <span style={{
+                display: 'block',
+                width: '24px',
+                height: '2px',
+                background: scrolled ? 'white' : '#1a1a1a',
+                transition: 'background 0.3s ease',
+              }} />
+            </>
+          )}
         </button>
       </nav>
 
-      {/* Mobile Navbar */}
-      <div
-        style={{
-          display: isMobile ? "block" : "none",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          zIndex: 50,
-        }}
-      >
-        {/* Background */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            height: "80px",
-            background: mobileOpen ? "rgba(8,8,8,0.98)" : scrolled ? "rgba(8,8,8,0.95)" : "rgba(8,8,8,0)",
-            transition: "background 0.3s ease",
-          }}
-        />
-
-        {/* Content */}
-        <div className="relative flex items-center justify-between px-6 h-20">
-          {/* Logo */}
-          <Link href="#" className="flex items-center gap-2 z-20">
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                backgroundColor: "#c9a84c",
-                borderRadius: "3px",
-              }}
-            />
-            <span style={{ fontSize: "16px", fontWeight: 700, color: scrolled ? "#fff" : "#333" }}>ShigoShots</span>
-          </Link>
-
-          {/* Hamburger */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
+      {/* MOBILE MENU OVERLAY */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '8px',
-              display: isMobile ? 'flex' : 'none',
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(8,8,8,0.97)',
+              zIndex: 999,
+              display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '40px',
-              height: '40px',
-              position: 'relative',
-              zIndex: 1001,
+              gap: '40px',
             }}
           >
-            {mobileOpen ? (
-              /* X icon when menu is open */
-              <span style={{
-                color: '#ffffff',
-                fontSize: '28px',
-                lineHeight: 1,
-                fontWeight: 300,
-                opacity: 1,
-              }}>
-                ×
-              </span>
-            ) : (
-              /* Hamburger lines when menu is closed */
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '5px',
-              }}>
-                {[0,1,2].map(i => (
-                  <span key={i} style={{
-                    display: 'block',
-                    width: '24px',
-                    height: '2px',
-                    background: scrolled ? 'white' : '#1a1a1a',
-                    transition: 'background 0.3s ease',
-                  }} />
-                ))}
-              </div>
-            )}
-          </button>
-        </div>
+            {navLinks.map((link, i) => (
+              <motion.button
+                key={link.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                onClick={() => handleNavClick(link.href)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: 'white',
+                  fontSize: '42px',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  fontFamily: 'Montserrat, sans-serif',
+                  letterSpacing: '-0.02em',
+                }}
+                onMouseEnter={e => e.currentTarget.style.color = '#c9a84c'}
+                onMouseLeave={e => e.currentTarget.style.color = 'white'}
+              >
+                {link.label}
+              </motion.button>
+            ))}
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              initial={{ opacity: 0, x: "100%" }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: "100%" }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-40 bg-black/95 flex flex-col items-center justify-center pt-20"
-              onClick={() => setMobileOpen(false)}
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+              onClick={() => handleNavClick('#contact')}
+              style={{
+                background: '#c9a84c',
+                color: '#000',
+                border: 'none',
+                borderRadius: '50px',
+                padding: '16px 40px',
+                fontSize: '16px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                marginTop: '16px',
+                fontFamily: 'Montserrat, sans-serif',
+              }}
             >
-              <div className="flex flex-col gap-6 text-center" onClick={(e) => e.stopPropagation()}>
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="text-2xl font-bold text-white hover:text-gold transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-                <button
-                  onClick={(e) => handleNavClick(e, "#contact")}
-                  className="mt-6 px-8 py-3 bg-gold text-black rounded-full font-bold"
-                >
-                  Book a session
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+              Book a session →
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* RESPONSIVE STYLES */}
+      <style jsx global>{`
+        @media (max-width: 767px) {
+          .navbar-container {
+            padding: 0 24px !important;
+          }
+        }
+      `}</style>
     </>
-  );
+  )
 }
 

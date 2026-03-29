@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { SanityImage } from '@/types'
@@ -9,6 +10,7 @@ interface AboutProps {
 }
 
 export default function About({ photographerImage }: AboutProps) {
+  const [imageHovered, setImageHovered] = useState(false)
   return (
     <section style={{ backgroundColor: '#080808' }} className="py-12 md:py-20 px-6 md:px-10 lg:px-20">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-16 max-w-6xl mx-auto items-center">
@@ -20,16 +22,58 @@ export default function About({ photographerImage }: AboutProps) {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="aspect-square md:aspect-[3/4] relative rounded-2xl overflow-hidden"
-          style={{ backgroundColor: '#1a1a1a' }}
+          style={{
+            backgroundColor: '#1a1a1a',
+            position: 'relative',
+          }}
+          onMouseEnter={() => setImageHovered(true)}
+          onMouseLeave={() => setImageHovered(false)}
         >
           {photographerImage?.asset?.url ? (
-            <Image
-              src={urlFor(photographerImage).url()}
-              alt={photographerImage.alt || 'Photographer portrait'}
-              fill
-              className="object-cover"
-              priority
-            />
+            <>
+              <Image
+                src={urlFor(photographerImage).url()}
+                alt={photographerImage.alt || 'Photographer portrait'}
+                fill
+                className="object-cover"
+                style={{
+                  transform: imageHovered ? 'scale(1.03)' : 'scale(1)',
+                  transition: 'transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)',
+                }}
+                priority
+              />
+
+              {/* Dark overlay - fades in on hover */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'rgba(0, 0, 0, 0.15)',
+                opacity: imageHovered ? 1 : 0,
+                transition: 'opacity 0.4s ease',
+                pointerEvents: 'none',
+              }} />
+
+              {/* Gold label slides up from bottom */}
+              <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                left: '20px',
+                background: 'rgba(201, 168, 76, 0.9)',
+                color: '#000',
+                fontSize: '10px',
+                letterSpacing: '0.3em',
+                textTransform: 'uppercase',
+                padding: '8px 16px',
+                opacity: imageHovered ? 1 : 0,
+                transform: imageHovered ? 'translateY(0)' : 'translateY(10px)',
+                transition: 'all 0.4s ease 0.1s',
+                pointerEvents: 'none',
+                fontWeight: 600,
+              }}>
+                <div>ShigoShot</div>
+                <div style={{ fontSize: '9px', letterSpacing: '0.25em' }}>Photographer</div>
+              </div>
+            </>
           ) : (
             /* Placeholder — shown when image is not available */
             <div className="w-full h-full flex flex-col items-center justify-center gap-3" style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)' }}>
@@ -42,6 +86,17 @@ export default function About({ photographerImage }: AboutProps) {
               </p>
             </div>
           )}
+
+          {/* Gold outline border - appears on hover */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            outline: imageHovered ? '2px solid rgba(201,168,76,0.4)' : '2px solid transparent',
+            outlineOffset: '8px',
+            borderRadius: 'inherit',
+            transition: 'outline 0.4s ease',
+            pointerEvents: 'none',
+          }} />
         </motion.div>
 
         {/* TEXT — Photographer bio content (appears SECOND on mobile) */}
@@ -99,10 +154,21 @@ export default function About({ photographerImage }: AboutProps) {
 
           {/* Signature line */}
           <div className="flex items-center gap-3 md:gap-4 pt-4 md:pt-6 border-t border-[#1e1e1e]">
-            <div className="w-12 h-12 md:w-12 md:h-12 rounded-full flex items-center justify-center" style={{ background: '#1a1a1a', border: '1px solid #2a2a2a' }}>
-              <span style={{ color: '#c9a84c', fontSize: '16px', fontWeight: 700 }}>
-                S
-              </span>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '50%',
+              overflow: 'hidden',
+              border: '2px solid #2a2a2a',
+              position: 'relative',
+              flexShrink: 0,
+            }}>
+              <Image
+                src="/logo.png"
+                alt="ShigoShots"
+                fill
+                style={{ objectFit: 'cover' }}
+              />
             </div>
             <div>
               <p style={{ color: 'white', fontSize: 'clamp(13px, 2vw, 14px)', fontWeight: 600 }}>

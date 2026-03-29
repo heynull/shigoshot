@@ -10,7 +10,7 @@ export const revalidate = 3600
 export default async function WorkPage() {
   const photos = await client.fetch<Photo[]>(getFeaturedPhotos)
 
-  const placeholders = [
+  const placeholders: any[] = [
     {
       _id: 'placeholder-1',
       title: 'Portrait Session',
@@ -94,7 +94,7 @@ export default async function WorkPage() {
     },
   ]
 
-  const displayPhotos = photos?.length > 0 ? photos : placeholders
+  const displayPhotos: any[] = photos?.length > 0 ? photos : placeholders
 
   return (
     <>

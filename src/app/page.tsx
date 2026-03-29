@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import { client } from '@/lib/sanity'
 import {
   getFeaturedPhotos,
@@ -12,14 +13,28 @@ import About from '@/components/sections/About'
 import WhatWeDo from '@/components/sections/WhatWeDo'
 import PortfolioGrid from '@/components/sections/PortfolioGrid'
 import StatsRow from '@/components/sections/StatsRow'
-import Testimonials from '@/components/sections/Testimonials'
-import CTABanner from '@/components/sections/CTABanner'
-import ContactWrapper from '@/components/sections/ContactWrapper'
 import Footer from '@/components/layout/Footer'
+
+// Dynamic imports for below-fold sections
+const Testimonials = dynamic(
+  () => import('@/components/sections/Testimonials'),
+  { loading: () => <div style={{height: '400px', background: '#080808'}} /> }
+)
+
+const CTABanner = dynamic(
+  () => import('@/components/sections/CTABanner'),
+  { loading: () => <div style={{height: '200px', background: '#080808'}} /> }
+)
+
+const ContactWrapper = dynamic(
+  () => import('@/components/sections/ContactWrapper'),
+  { loading: () => <div style={{height: '600px', background: '#080808'}} /> }
+)
 
 interface SiteSettings {
   _id: string
   title?: string
+  description?: string
   yearsExperience?: number
   projectsCompleted?: number
   countriesVisited?: number
@@ -45,14 +60,14 @@ export async function generateMetadata(): Promise<Metadata> {
           siteSettings?.description ||
           'Professional photography portfolio — portraits, weddings, editorial and fine art photography based in Lagos, Nigeria.',
         type: 'website',
-        url: 'https://elenaram.com',
+        url: 'https://shigoshots.com',
         images: siteSettings?.heroImage?.asset?.url
           ? [
               {
                 url: siteSettings.heroImage.asset.url,
                 width: siteSettings.heroImage.asset.metadata?.dimensions?.width || 1200,
                 height: siteSettings.heroImage.asset.metadata?.dimensions?.height || 630,
-                alt: siteSettings.heroImage.alt || 'Elena Maris Portfolio',
+                alt: siteSettings.heroImage.alt || 'ShigoShots — Photography',
               },
             ]
           : [],
@@ -89,7 +104,7 @@ export default async function Home() {
     // Debug logging to verify data from Sanity
     console.log('Featured photos count:', featuredPhotos?.length)
     console.log('Testimonials count:', testimonials?.length)
-    console.log('SiteSettings:', siteSettings?.photographerName)
+    console.log('SiteSettings:', siteSettings?.title)
 
     return (
       <>

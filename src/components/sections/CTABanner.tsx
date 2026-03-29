@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function CTABanner() {
   return (
-    <section className="bg-[#111111] px-6 py-24 tablet:px-12 lg:px-20 lg:py-32">
+    <section className="bg-[#111111] px-6 py-16 tablet:px-12 lg:px-20 lg:py-20">
       <div className="mx-auto max-w-3xl">
         {/* Fade + Scale In */}
         <motion.div
@@ -33,6 +33,13 @@ export default function CTABanner() {
 
           {/* CTA Button */}
           <motion.button
+            onClick={() => {
+              const contact = document.querySelector('#contact')
+              if (contact) {
+                const top = contact.getBoundingClientRect().top + window.scrollY - 72
+                window.scrollTo({ top, behavior: 'smooth' })
+              }
+            }}
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

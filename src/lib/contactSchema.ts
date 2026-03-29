@@ -13,9 +13,9 @@ export const contactSchema = z.object({
     .string()
     .email('Please enter a valid email address'),
   projectType: z.enum(
-    ['portrait', 'editorial', 'landscape', 'urban', 'fineArt', 'documentary', 'fashion'],
-    { message: 'Please select a valid project type' }
+    ['portrait', 'wedding', 'commercial', 'fineart', 'other']
   ),
+  otherProjectType: z.string().optional(),
   message: z
     .string()
     .min(20, 'Message must be at least 20 characters')

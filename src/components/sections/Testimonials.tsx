@@ -49,10 +49,18 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       className="relative"
     >
       <motion.div
-        className="relative bg-black/30 p-7 rounded-sm border-2 border-transparent overflow-hidden"
-        animate={{ borderColor: !prefersReducedMotion && isHovered ? '#c9a84c' : 'transparent' }}
-        transition={{ duration: 0.3 }}
-        style={{ backgroundImage: 'linear-gradient(to top, rgba(8,8,8,0.88) 0%, transparent 55%)', backgroundBlendMode: 'multiply' }}
+        className="relative p-7 overflow-hidden"
+        animate={{
+          background: isHovered ? '#1c1c1c' : '#0e0e0e',
+          borderColor: isHovered ? '#2a2a2a' : '#1a1a1a',
+          y: isHovered ? -6 : 0,
+          boxShadow: isHovered ? '0 20px 60px rgba(0,0,0,0.5)' : '0 0px 0px rgba(0,0,0,0)',
+        }}
+        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+        style={{
+          border: '1px solid',
+          borderRadius: '16px',
+        }}
       >
         {/* Decorative Quote Mark */}
         <div className="absolute top-4 left-6 text-gold opacity-15 pointer-events-none">
@@ -102,7 +110,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
   // Show empty state if no testimonials data
   if (!testimonials || testimonials.length === 0) {
     return (
-      <section className="w-full">
+      <section className="w-full" style={{ padding: '60px 24px', backgroundColor: '#080808' }}>
         <div className="max-w-7xl mx-auto">
           <div style={{padding: '40px 24px', textAlign: 'center'}}>
             <p style={{color: '#6a6a6a', fontSize: '11px', letterSpacing: '0.3em', textTransform: 'uppercase'}}>
@@ -115,8 +123,65 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
   }
 
   return (
-    <section className="w-full">
+    <section className="w-full" style={{ padding: '60px 24px', backgroundColor: '#080808' }}>
       <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          style={{ textAlign: 'center', marginBottom: '60px' }}
+        >
+          {/* Gold Eyebrow Label with decorative lines */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '12px',
+            marginBottom: '16px',
+            fontSize: '10px',
+            color: '#c9a84c',
+            letterSpacing: '0.4em',
+            textTransform: 'uppercase',
+            fontWeight: 600,
+          }}>
+            <div style={{
+              flex: '0 1 40px',
+              height: '1px',
+              background: 'linear-gradient(to right, transparent, #c9a84c)',
+            }} />
+            <span>Client Reviews</span>
+            <div style={{
+              flex: '0 1 40px',
+              height: '1px',
+              background: 'linear-gradient(to left, transparent, #c9a84c)',
+            }} />
+          </div>
+
+          {/* Main Title */}
+          <h2 style={{
+            fontSize: 'clamp(28px, 3.5vw, 48px)',
+            color: 'white',
+            fontWeight: 700,
+            marginBottom: '16px',
+            lineHeight: 1.2,
+          }}>
+            What Our Clients Say About Us
+          </h2>
+
+          {/* Subtitle */}
+          <p style={{
+            fontSize: '16px',
+            fontStyle: 'italic',
+            color: '#888',
+            fontFamily: "'Cormorant Garamond', 'Garamond', serif",
+            marginBottom: '60px',
+          }}>
+            You can't go wrong with ShigoShot
+          </p>
+        </motion.div>
+
         <RevealOnScroll>
           <motion.div
             variants={CONTAINER_VARIANTS}
@@ -126,22 +191,20 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
             className="w-full"
           >
             {/* Desktop & Tablet Grid: 2×2 */}
-            <div className="hidden tablet:grid grid-cols-2 gap-3">
+            <div className="hidden tablet:grid grid-cols-2 gap-6">
               {testimonials.map((testimonial) => (
-                <TestimonialCard
-                  key={testimonial._id}
-                  testimonial={testimonial}
-                />
+                <div key={testimonial._id} style={{ padding: '36px' }}>
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
               ))}
             </div>
 
             {/* Mobile Grid: 1 column */}
-            <div className="tablet:hidden flex flex-col gap-3">
+            <div className="tablet:hidden flex flex-col gap-4">
               {testimonials.map((testimonial) => (
-                <TestimonialCard
-                  key={testimonial._id}
-                  testimonial={testimonial}
-                />
+                <div key={testimonial._id} style={{ padding: '36px' }}>
+                  <TestimonialCard testimonial={testimonial} />
+                </div>
               ))}
             </div>
           </motion.div>

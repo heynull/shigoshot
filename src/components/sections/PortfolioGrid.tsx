@@ -1,18 +1,18 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Photo } from '@/types'
 import { urlFor } from '@/lib/sanity'
 
-const placeholders: Photo[] = [
+const placeholders: any[] = [
   {
     _id: 'placeholder-1',
     title: 'Portrait Session',
     category: 'portrait',
     image: { 
-      asset: { _id: 'placeholder', _type: 'sanity.imageAsset', url: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80' },
+      asset: { _id: 'placeholder', _type: 'reference', url: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80' },
       alt: 'Portrait photography'
     }
   },
@@ -21,7 +21,7 @@ const placeholders: Photo[] = [
     title: 'Wedding Moments',
     category: 'portrait',
     image: {
-      asset: { _id: 'placeholder', _type: 'sanity.imageAsset', url: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80' },
+      asset: { _id: 'placeholder', _type: 'reference', url: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80' },
       alt: 'Wedding photography'
     }
   },
@@ -30,7 +30,7 @@ const placeholders: Photo[] = [
     title: 'Editorial Shoot',
     category: 'editorial',
     image: {
-      asset: { _id: 'placeholder', _type: 'sanity.imageAsset', url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80' },
+      asset: { _id: 'placeholder', _type: 'reference', url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&q=80' },
       alt: 'Editorial photography'
     }
   },
@@ -39,7 +39,7 @@ const placeholders: Photo[] = [
     title: 'Commercial Brand',
     category: 'editorial',
     image: {
-      asset: { _id: 'placeholder', _type: 'sanity.imageAsset', url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80' },
+      asset: { _id: 'placeholder', _type: 'reference', url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80' },
       alt: 'Commercial photography'
     }
   },
@@ -48,7 +48,7 @@ const placeholders: Photo[] = [
     title: 'Fine Art Print',
     category: 'fineArt',
     image: {
-      asset: { _id: 'placeholder', _type: 'sanity.imageAsset', url: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&q=80' },
+      asset: { _id: 'placeholder', _type: 'reference', url: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&q=80' },
       alt: 'Fine art photography'
     }
   },
@@ -57,7 +57,7 @@ const placeholders: Photo[] = [
     title: 'Urban Landscape',
     category: 'urban',
     image: {
-      asset: { _id: 'placeholder', _type: 'sanity.imageAsset', url: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=80' },
+      asset: { _id: 'placeholder', _type: 'reference', url: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=80' },
       alt: 'Urban photography'
     }
   },
@@ -69,14 +69,33 @@ interface PortfolioGridProps {
 
 export default function PortfolioGrid({ photos = [] }: PortfolioGridProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null)
-  const displayPhotos = (photos?.length > 0 
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  const displayPhotos: any[] = photos?.length > 0 
     ? photos.slice(0, 6)
-    : placeholders) as Photo[]
+    : placeholders
+
+  // Handle escape key to close lightbox
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxIndex(null)
+    }
+    if (lightboxIndex !== null) {
+      window.addEventListener('keydown', handleEscape)
+      return () => window.removeEventListener('keydown', handleEscape)
+    }
+  }, [lightboxIndex])
+
+  const currentPhoto = lightboxIndex !== null ? displayPhotos[lightboxIndex] : null
+  const currentImageUrl = currentPhoto?.image?.asset?.url
+    ? currentPhoto.image.asset.url.startsWith('http')
+      ? currentPhoto.image.asset.url
+      : urlFor(currentPhoto.image).width(1200).format('webp').url()
+    : null
 
   return (
     <section style={{
       backgroundColor: '#0a0a0a',
-      padding: '80px 24px',
+      padding: '60px 24px',
     }}>
       {/* Header */}
       <motion.div
@@ -141,14 +160,16 @@ export default function PortfolioGrid({ photos = [] }: PortfolioGridProps) {
               transition={{ duration: 0.5, delay: index * 0.08 }}
               onMouseEnter={() => setHoveredId(photo._id)}
               onMouseLeave={() => setHoveredId(null)}
+              onClick={() => setLightboxIndex(index)}
               style={{
                 position: 'relative',
                 aspectRatio: '1/1',
                 borderRadius: '12px',
                 overflow: 'hidden',
-                cursor: 'pointer',
+                cursor: 'zoom-in',
                 backgroundColor: '#1a1a1a',
               }}
+              className="portfolio-image"
             >
               {/* Image */}
               {imageUrl ? (
@@ -354,6 +375,151 @@ export default function PortfolioGrid({ photos = [] }: PortfolioGridProps) {
           View All Work →
         </Link>
       </div>
+
+      {/* Lightbox Modal */}
+      {lightboxIndex !== null && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.95)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: '40px 20px',
+            backdropFilter: 'blur(4px)',
+          }}
+          onClick={() => setLightboxIndex(null)}
+        >
+          {/* Close button */}
+          <button
+            onClick={() => setLightboxIndex(null)}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '30px',
+              background: 'none',
+              border: 'none',
+              color: '#fff',
+              fontSize: '32px',
+              cursor: 'pointer',
+              zIndex: 10001,
+              fontWeight: 300,
+            }}
+          >
+            ×
+          </button>
+
+          {/* Previous arrow */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setLightboxIndex((lightboxIndex - 1 + displayPhotos.length) % displayPhotos.length)
+            }}
+            style={{
+              position: 'absolute',
+              left: '30px',
+              background: 'none',
+              border: 'none',
+              color: '#c9a84c',
+              fontSize: '28px',
+              cursor: 'pointer',
+              zIndex: 10001,
+              transition: 'opacity 0.2s ease',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '0.6')}
+          >
+            ←
+          </button>
+
+          {/* Image container */}
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '900px',
+              aspectRatio: '1/1',
+              marginBottom: '20px',
+              zIndex: 10000,
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            {currentImageUrl ? (
+              <Image
+                src={currentImageUrl}
+                alt={currentPhoto?.title || 'Portfolio image'}
+                fill
+                style={{ objectFit: 'contain' }}
+                sizes="(max-width: 768px) 100vw, 900px"
+              />
+            ) : (
+              <div style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#1a1a1a',
+                borderRadius: '8px',
+              }}>
+                <p style={{ color: '#666' }}>Image not available</p>
+              </div>
+            )}
+          </div>
+
+          {/* Photo title */}
+          {currentPhoto && (
+            <h3 style={{
+              color: 'white',
+              fontSize: '18px',
+              fontWeight: 600,
+              marginBottom: '10px',
+              zIndex: 10000,
+            }}>
+              {currentPhoto.title}
+            </h3>
+          )}
+
+          {/* Image counter */}
+          <p style={{
+            color: '#888',
+            fontSize: '12px',
+            marginBottom: '20px',
+            zIndex: 10000,
+          }}>
+            {lightboxIndex + 1} / {displayPhotos.length}
+          </p>
+
+          {/* Next arrow */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setLightboxIndex((lightboxIndex + 1) % displayPhotos.length)
+            }}
+            style={{
+              position: 'absolute',
+              right: '30px',
+              background: 'none',
+              border: 'none',
+              color: '#c9a84c',
+              fontSize: '28px',
+              cursor: 'pointer',
+              zIndex: 10001,
+              transition: 'opacity 0.2s ease',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '0.6')}
+          >
+            →
+          </button>
+        </div>
+      )}
 
       <style jsx>{`
         @media (max-width: 768px) {
