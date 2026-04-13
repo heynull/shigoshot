@@ -7,19 +7,13 @@
  * https://github.com/sanity-io/next-sanity
  */
 
+import { NextStudio } from 'next-sanity/studio'
+import config from '../../../../../sanity.config'
+
 export const dynamic = 'force-static'
 
 export { metadata, viewport } from 'next-sanity/studio'
 
-import { lazy, Suspense } from 'react'
-
-const StudioClient = lazy(() => import('./studio-client'))
-
 export default function StudioPage() {
-  return (
-    <Suspense fallback={<div>Loading Studio...</div>}>
-      <StudioClient />
-    </Suspense>
-  )
+  return <NextStudio config={config} />
 }
-
