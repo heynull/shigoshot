@@ -157,12 +157,7 @@ export default function WorkGallery({ photos }: { photos: any[] }) {
       {/* Masonry-style grid */}
       <motion.div
         layout
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '12px',
-        }}
-        className="work-grid"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4"
       >
         <AnimatePresence mode="popLayout">
           {filtered.map((photo, index) => {
@@ -416,17 +411,14 @@ export default function WorkGallery({ photos }: { photos: any[] }) {
 
       {/* Responsive styles */}
       <style jsx>{`
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
           .work-section {
-            padding: 100px 24px 60px !important;
-          }
-          .work-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            padding: 100px 16px 60px !important;
           }
         }
-        @media (max-width: 480px) {
-          .work-grid {
-            grid-template-columns: 1fr !important;
+        @media (min-width: 641px) and (max-width: 768px) {
+          .work-section {
+            padding: 100px 24px 60px !important;
           }
         }
       `}</style>

@@ -101,12 +101,14 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
   const displayPhotos: any[] = photos?.length > 0 ? photos : placeholders
 
   return (
-    <section style={{
-      backgroundColor: '#0e0e0e',
-      borderTopLeftRadius: '40px',
-      borderTopRightRadius: '40px',
-      padding: '60px 24px 50px 24px',
-    }}>
+    <section 
+      style={{
+        backgroundColor: '#0e0e0e',
+        borderTopLeftRadius: '40px',
+        borderTopRightRadius: '40px',
+      }}
+      className="pt-10 pb-10 px-2 md:pt-[70px] md:pb-[50px] md:px-6"
+    >
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -137,7 +139,7 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
       </motion.div>
 
       {/* 2-column card grid - responsive using Tailwind */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 md:px-20 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-2 md:px-20 max-w-6xl mx-auto">
         {services.map((service, index) => {
           const photo = displayPhotos[index]
           const isHovered = hoveredIndex === index

@@ -95,7 +95,7 @@ export default function PortfolioGrid({ photos = [] }: PortfolioGridProps) {
   return (
     <section style={{
       backgroundColor: '#0a0a0a',
-      padding: '60px 24px',
+      padding: '60px 16px',
     }}>
       {/* Header */}
       <motion.div
@@ -134,7 +134,7 @@ export default function PortfolioGrid({ photos = [] }: PortfolioGridProps) {
       </motion.div>
 
       {/* Responsive grid: 1 col mobile, 2 col tablet, 3 col desktop */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 px-6 md:px-20 max-w-6xl mx-auto mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 px-2 md:px-20 max-w-6xl mx-auto mb-10">
         {displayPhotos.map((photo, index) => {
           const imageUrl = photo?.image?.asset?.url
             ? photo.image.asset.url.startsWith('http')

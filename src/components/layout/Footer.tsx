@@ -116,9 +116,9 @@ export default function Footer() {
             <p style={headingStyle}>Connect</p>
             <div className="flex flex-col">
               {[
-                { label: 'Instagram', href: '#' },
-                { label: 'LinkedIn', href: '#' },
-                { label: 'Behance', href: '#' },
+                { label: 'Instagram', href: 'https://www.instagram.com/shigoshot/' },
+                { label: 'TikTok', href: 'https://www.tiktok.com/@shigoshot/' },
+                { label: 'WhatsApp', href: 'https://wa.me/2349160184596' },
               ].map(item => (
                 <a
                   key={item.label}

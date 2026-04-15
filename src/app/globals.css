@@ -19,6 +19,18 @@ body {
   overflow-x: hidden;
   width: 100%;
   position: relative;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+  
+  p, .text-fluid-body, .description-text {
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+  }
 }
 
 :root {
@@ -432,25 +444,42 @@ select:focus-visible {
 
 /* ========================================
    STANDARDIZED SECTION SPACING
-   Desktop: 80px h-pad, 140px v-pad
-   Mobile: 24px h-pad, 72px v-pad (set via media query above)
+   Reduced padding on all sections except Hero & About
    ======================================== */
+/* Desktop section padding (1025px and up) */
 @media (min-width: 1025px) {
-  section {
+  section:not(#home):not(.about-section) {
     padding-left: 80px !important;
     padding-right: 80px !important;
-    padding-top: 140px !important;
-    padding-bottom: 140px !important;
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
   }
 }
 
+/* Tablet section padding (769px to 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
-  section {
+  section:not(#home):not(.about-section) {
     padding-left: 40px !important;
     padding-right: 40px !important;
-    padding-top: 104px !important;
-    padding-bottom: 104px !important;
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
   }
+}
+
+/* Mobile section padding (768px and down) */
+@media (max-width: 768px) {
+  section:not(#home):not(.about-section) {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+}
+
+/* Keep What We Do top border-radius */
+section:first-of-type {
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
 }
 
 /* ========================================
@@ -528,6 +557,23 @@ html, body {
   box-sizing: border-box;
 }
 
+/* REDUCE MOBILE PADDING - TIGHTER SPACING */
+@media (max-width: 768px) {
+  section {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+  
+  .max-w-7xl {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  
+  .grid {
+    gap: 16px !important;
+  }
+}
+
 /* FORCE HERO FULL WIDTH ON MOBILE - NO BLACK BARS */
 @media (max-width: 768px) {
   #home {
@@ -543,5 +589,66 @@ html, body {
   #home > div {
     padding-left: 24px !important;
     padding-right: 24px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Card internal padding */
+  .card-sm, .card-lg {
+    padding: 20px !important;
+  }
+  
+  /* Grid gaps */
+  .grid {
+    gap: 16px !important;
+  }
+  
+  /* Keep hero padding different */
+  #home {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+/* REDUCE PADDING ON ALL SECTIONS EXCEPT HERO AND ABOUT */
+section {
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+}
+
+/* Restore Hero and About to their original spacing */
+#home {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.about-section {
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+}
+
+/* Mobile overrides */
+@media (max-width: 768px) {
+  section {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+  
+  #home {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  .about-section {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+}
+
+/* Desktop overrides */
+@media (min-width: 1025px) {
+  .about-section {
+    padding-top: 120px !important;
+    padding-bottom: 120px !important;
   }
 }
