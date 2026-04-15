@@ -133,10 +133,8 @@ export default function PortfolioGrid({ photos = [] }: PortfolioGridProps) {
         </p>
       </motion.div>
 
-      {/* 3-column grid */}
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 px-6 md:px-20 max-w-6xl mx-auto mb-10"
-      >
+      {/* Responsive grid: 1 col mobile, 2 col tablet, 3 col desktop */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 px-6 md:px-20 max-w-6xl mx-auto mb-10">
         {displayPhotos.map((photo, index) => {
           const imageUrl = photo?.image?.asset?.url
             ? photo.image.asset.url.startsWith('http')
@@ -513,15 +511,6 @@ export default function PortfolioGrid({ photos = [] }: PortfolioGridProps) {
           </button>
         </div>
       )}
-
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .portfolio-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-        }
-      `}</style>
     </section>
   )
 }
-

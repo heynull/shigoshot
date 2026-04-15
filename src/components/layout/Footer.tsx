@@ -28,10 +28,10 @@ export default function Footer() {
       <div className="px-6 md:px-10 lg:px-20 pt-12 pb-4">
         
         {/* Grid: 1 col mobile, 2 col tablet, 4 col desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center md:text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           
           {/* Col 1 - Stay Updated */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
             <p style={headingStyle}>Stay Updated</p>
             <div className="flex w-full max-w-xs">
               <input
@@ -66,7 +66,7 @@ export default function Footer() {
                 Subscribe
               </button>
             </div>
-            <div style={{ marginTop: '16px' }} className="text-center md:text-left">
+            <div style={{ marginTop: '16px' }} className="text-center lg:text-left">
               {['Available Worldwide', 'Est. 2020', 'Lagos, Nigeria'].map(t => (
                 <p key={t} style={{ color: '#555', fontSize: '12px', lineHeight: '1.8' }}>
                   {t}
@@ -76,7 +76,7 @@ export default function Footer() {
           </div>
 
           {/* Col 2 - Explore */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
             <p style={headingStyle}>Explore</p>
             <div className="flex flex-col">
               {['Home', 'Portfolio', 'Services', 'Contact'].map(item => (
@@ -94,7 +94,7 @@ export default function Footer() {
           </div>
 
           {/* Col 3 - Services */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
             <p style={headingStyle}>Services</p>
             <div className="flex flex-col">
               {['Portrait', 'Wedding', 'Commercial', 'Fine Art'].map(item => (
@@ -112,7 +112,7 @@ export default function Footer() {
           </div>
 
           {/* Col 4 - Connect */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
             <p style={headingStyle}>Connect</p>
             <div className="flex flex-col">
               {[

@@ -21,125 +21,125 @@ export default function StatsRow({
     { label: 'Awards Won', suffix: '×', value: awardsCount ?? 4 },
   ]
 
-function useCountUp(target: number, duration: number = 2000, start: boolean = false) {
-  const [count, setCount] = useState(0)
+  function useCountUp(target: number, duration: number = 2000, start: boolean = false) {
+    const [count, setCount] = useState(0)
 
-  useEffect(() => {
-    if (!start) return
-    let startTime: number
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp
-      const progress = Math.min((timestamp - startTime) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.floor(eased * target))
-      if (progress < 1) requestAnimationFrame(step)
-    }
-    requestAnimationFrame(step)
-  }, [target, duration, start])
+    useEffect(() => {
+      if (!start) return
+      let startTime: number
+      const step = (timestamp: number) => {
+        if (!startTime) startTime = timestamp
+        const progress = Math.min((timestamp - startTime) / duration, 1)
+        const eased = 1 - Math.pow(1 - progress, 3)
+        setCount(Math.floor(eased * target))
+        if (progress < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }, [target, duration, start])
 
-  return count
-}
+    return count
+  }
 
-function StatItem({ 
-  label, 
-  suffix, 
-  value,
-  index,
-  borderClasses,
-}: { 
-  label: string
-  suffix: string
-  value: number
-  index: number
-  borderClasses: string
-}) {
-  const [hovered, setHovered] = useState(false)
-  const [inView, setInView] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  const count = useCountUp(value, 2000, inView)
+  function StatItem({ 
+    label, 
+    suffix, 
+    value,
+    index,
+    borderClasses,
+  }: { 
+    label: string
+    suffix: string
+    value: number
+    index: number
+    borderClasses: string
+  }) {
+    const [hovered, setHovered] = useState(false)
+    const [inView, setInView] = useState(false)
+    const ref = useRef<HTMLDivElement>(null)
+    const count = useCountUp(value, 2000, inView)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true) },
-      { threshold: 0.3 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setInView(true) },
+        { threshold: 0.3 }
+      )
+      if (ref.current) observer.observe(ref.current)
+      return () => observer.disconnect()
+    }, [])
 
-  return (
-    <div
-      ref={ref}
-      className={borderClasses}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        padding: '32px 16px',
-        textAlign: 'center',
-        cursor: 'default',
-        position: 'relative',
-        transition: 'background 0.3s ease',
-        background: hovered ? 'rgba(201,168,76,0.04)' : 'transparent',
-      }}
-    >
-      {/* Top gold line on hover */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        height: '2px',
-        width: hovered ? '60%' : '0%',
-        background: 'linear-gradient(to right, transparent, #c9a84c, transparent)',
-        transition: 'width 0.4s cubic-bezier(0.25,0.46,0.45,0.94)',
-      }} />
+    return (
+      <div
+        ref={ref}
+        className={borderClasses}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{
+          padding: '32px 16px',
+          textAlign: 'center',
+          cursor: 'default',
+          position: 'relative',
+          transition: 'background 0.3s ease',
+          background: hovered ? 'rgba(201,168,76,0.04)' : 'transparent',
+        }}
+      >
+        {/* Top gold line on hover */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          height: '2px',
+          width: hovered ? '60%' : '0%',
+          background: 'linear-gradient(to right, transparent, #c9a84c, transparent)',
+          transition: 'width 0.4s cubic-bezier(0.25,0.46,0.45,0.94)',
+        }} />
 
-      {/* Number */}
-      <div style={{
-        fontSize: 'clamp(28px, 7vw, 40px)',
-        fontWeight: 700,
-        color: hovered ? '#c9a84c' : 'white',
-        lineHeight: 1,
-        marginBottom: '10px',
-        transition: 'color 0.3s ease',
-        letterSpacing: '-0.02em',
-      }}>
-        {count}
-        <span style={{
-          color: '#c9a84c',
-          fontSize: '0.45em',
-          marginLeft: '2px',
-          verticalAlign: 'super',
+        {/* Number */}
+        <div style={{
+          fontSize: 'clamp(28px, 7vw, 40px)',
+          fontWeight: 700,
+          color: hovered ? '#c9a84c' : 'white',
+          lineHeight: 1,
+          marginBottom: '10px',
+          transition: 'color 0.3s ease',
+          letterSpacing: '-0.02em',
         }}>
-          {suffix}
-        </span>
-      </div>
+          {count}
+          <span style={{
+            color: '#c9a84c',
+            fontSize: '0.45em',
+            marginLeft: '2px',
+            verticalAlign: 'super',
+          }}>
+            {suffix}
+          </span>
+        </div>
 
-      {/* Label */}
-      <div style={{
-        fontSize: 'clamp(8px, 1.5vw, 10px)',
-        letterSpacing: '0.3em',
-        textTransform: 'uppercase',
-        color: hovered ? '#aaa' : '#666',
-        transition: 'color 0.3s ease',
-      }}>
-        {label}
-      </div>
+        {/* Label */}
+        <div style={{
+          fontSize: 'clamp(8px, 1.5vw, 10px)',
+          letterSpacing: '0.3em',
+          textTransform: 'uppercase',
+          color: hovered ? '#aaa' : '#666',
+          transition: 'color 0.3s ease',
+        }}>
+          {label}
+        </div>
 
-      {/* Bottom gold line on hover */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        height: '2px',
-        width: hovered ? '60%' : '0%',
-        background: 'linear-gradient(to right, transparent, #c9a84c, transparent)',
-        transition: 'width 0.4s cubic-bezier(0.25,0.46,0.45,0.94)',
-      }} />
-    </div>
-  )
-}
+        {/* Bottom gold line on hover */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          height: '2px',
+          width: hovered ? '60%' : '0%',
+          background: 'linear-gradient(to right, transparent, #c9a84c, transparent)',
+          transition: 'width 0.4s cubic-bezier(0.25,0.46,0.45,0.94)',
+        }} />
+      </div>
+    )
+  }
 
   return (
     <section style={{

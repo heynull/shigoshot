@@ -136,9 +136,8 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
         </p>
       </motion.div>
 
-      {/* 2-column card grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 md:px-20 max-w-6xl mx-auto"
-      >
+      {/* 2-column card grid - responsive using Tailwind */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-6 md:px-20 max-w-6xl mx-auto">
         {services.map((service, index) => {
           const photo = displayPhotos[index]
           const isHovered = hoveredIndex === index
@@ -172,12 +171,13 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
                   src={imageUrl}
                   alt={service.title}
                   fill
-                  className="object-cover transition-all duration-700"
+                  className="object-cover"
                   style={{
                     filter: isHovered
                       ? 'brightness(0.3) saturate(0.7)'
                       : 'brightness(0.5) saturate(0.85)',
                     transform: isHovered ? 'scale(1.06)' : 'scale(1)',
+                    transition: 'all 0.6s cubic-bezier(0.25,0.46,0.45,0.94)',
                   }}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
@@ -304,15 +304,6 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
           )
         })}
       </div>
-
-      {/* Mobile responsive style */}
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .whatwedo-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   )
 }

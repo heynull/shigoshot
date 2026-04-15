@@ -28,7 +28,6 @@ interface FormFieldProps {
 function FormField({ label, fieldId, error, isTouched, children }: FormFieldProps) {
   return (
     <div className="relative">
-      {/* Label */}
       <label
         htmlFor={fieldId}
         style={{
@@ -44,11 +43,9 @@ function FormField({ label, fieldId, error, isTouched, children }: FormFieldProp
         {label}
       </label>
 
-      {/* Input wrapper */}
       <div className="relative">
         {children}
 
-        {/* Bottom underline - animates on focus/touch */}
         <motion.div
           className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-[#c9a84c] to-transparent"
           initial={{ scaleX: 0 }}
@@ -57,7 +54,6 @@ function FormField({ label, fieldId, error, isTouched, children }: FormFieldProp
           style={{ transformOrigin: 'center' }}
         />
 
-        {/* Error line flash */}
         {error && isTouched && (
           <motion.div
             className="absolute bottom-0 left-0 h-px bg-red-500 w-full"
@@ -74,7 +70,6 @@ function FormField({ label, fieldId, error, isTouched, children }: FormFieldProp
         )}
       </div>
 
-      {/* Error message */}
       <AnimatePresence>
         {error && isTouched && (
           <motion.p
@@ -109,7 +104,6 @@ function SuccessCheckmark() {
       strokeLinejoin="round"
       style={{ margin: '0 auto 24px' }}
     >
-      {/* Circle */}
       <motion.circle
         cx="32"
         cy="32"
@@ -120,7 +114,6 @@ function SuccessCheckmark() {
         animate={{ pathLength: 1 }}
         transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
       />
-      {/* Checkmark */}
       <motion.path
         d="M 20 32 L 28 40 L 44 24"
         stroke="#c9a84c"
@@ -181,7 +174,6 @@ export default function Contact() {
       setTouchedFields({})
       setSelectedProject('')
 
-      // Reset success state after 5 seconds
       setTimeout(() => {
         setFormStatus('idle')
       }, 5000)
@@ -197,7 +189,6 @@ export default function Contact() {
     setTouchedFields(prev => ({ ...prev, [fieldName]: true }))
   }
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -212,11 +203,15 @@ export default function Contact() {
     <section
       style={{
         backgroundColor: '#080808',
+        padding: '80px 24px',
       }}
       id="contact"
     >
       <div
-        className="max-w-2xl mx-auto px-6 md:px-0 py-12 md:py-20"
+        style={{
+          maxWidth: '680px',
+          margin: '0 auto',
+        }}
       >
         {/* Heading */}
         <h2
@@ -309,7 +304,12 @@ export default function Contact() {
           >
             {/* First & Last Name Row */}
             <div
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '20px',
+              }}
+              className="name-grid"
             >
               {/* First Name */}
               <FormField
@@ -428,14 +428,12 @@ export default function Contact() {
               isTouched={touchedFields.projectType}
             >
               <div ref={dropdownRef} style={{ position: 'relative' }}>
-                {/* Hidden input for form */}
                 <input
                   type="hidden"
                   {...register('projectType')}
                   value={selectedProject}
                 />
 
-                {/* Dropdown trigger */}
                 <button
                   type="button"
                   onClick={() => {
@@ -471,7 +469,6 @@ export default function Contact() {
                       ? projectTypes.find(t => t.value === selectedProject)?.label
                       : 'Select a project type'}
                   </span>
-                  {/* Chevron */}
                   <motion.span
                     animate={{ rotate: isDropdownOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -486,7 +483,6 @@ export default function Contact() {
                   </motion.span>
                 </button>
 
-                {/* Dropdown menu */}
                 <AnimatePresence>
                   {isDropdownOpen && (
                     <motion.div
@@ -668,8 +664,8 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={formStatus === 'loading'}
-                className="w-full md:w-auto"
                 style={{
+                  width: '100%',
                   background: '#c9a84c',
                   color: '#000',
                   border: 'none',
@@ -719,6 +715,15 @@ export default function Contact() {
           </motion.form>
         )}
       </div>
+
+      {/* Mobile responsive styles */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .name-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }

@@ -74,11 +74,10 @@ export default function Hero() {
           alignItems: "center",
           maxWidth: "900px",
           margin: "0 auto",
-          
         }}
       >
         {/* Headline */}
-        <motion.div variants={containerVariants} className="w-full px-4">
+        <motion.div variants={containerVariants} className="w-full">
           {headlineRows.map((row, rowIndex) => (
             <div
               key={rowIndex}

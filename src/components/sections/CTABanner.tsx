@@ -25,7 +25,7 @@ export default function CTABanner() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[#999999] text-sm tablet:text-base leading-relaxed mb-10 tablet:mb-12 max-w-2xl mx-auto"
+            className="text-[#999999] text-sm md:text-base leading-relaxed mb-10 md:mb-12 max-w-2xl mx-auto"
           >
             Whether you're planning a wedding, brand campaign, or fine art commission — we'd love to create
             something extraordinary together.
