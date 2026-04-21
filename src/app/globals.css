@@ -773,3 +773,45 @@ select {
 .eyebrow-text {
   font-weight: 400 !important;
 }
+
+/* ========================================
+   INCREASE BODY TEXT TO 18-19PX ON MOBILE
+   Better readability without affecting headings
+   ======================================== */
+@media (max-width: 768px) {
+  /* Paragraphs to 19px */
+  p, 
+  .description-text,
+  .about-description {
+    font-size: 19px !important;
+    line-height: 1.6 !important;
+  }
+  
+  /* Descriptions to 18px */
+  .what-we-do-description,
+  .portfolio-description,
+  .testimonial-quote {
+    font-size: 18px !important;
+  }
+  
+  /* Form labels to 18px */
+  label, .form-label {
+    font-size: 18px !important;
+    letter-spacing: 0.1em !important;
+  }
+  
+  /* Form inputs to 18px */
+  input, textarea, select, .form-input {
+    font-size: 18px !important;
+  }
+  
+  /* Contact buttons text */
+  .contact-buttons a {
+    font-size: 14px !important;
+  }
+  
+  /* Small metadata stays small */
+  .text-muted, .category-tag, .eyebrow-text {
+    font-size: 11px !important;
+  }
+}
