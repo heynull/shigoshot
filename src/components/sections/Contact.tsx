@@ -203,7 +203,7 @@ export default function Contact() {
     <section
       style={{
         backgroundColor: '#080808',
-        padding: '80px 24px',
+        padding: '80px 8px',
       }}
       id="contact"
     >
@@ -211,6 +211,7 @@ export default function Contact() {
         style={{
           maxWidth: '680px',
           margin: '0 auto',
+          width: '100%',
         }}
       >
         {/* Heading */}
@@ -248,7 +249,7 @@ export default function Contact() {
           {/* Phone Number */}
           <a
             href="tel:+2349015159470"
-            className="flex items-center gap-2 text-[#888] hover:text-[#c9a84c] transition-colors duration-300 text-sm sm:text-base"
+            className="flex items-center gap-2 text-[#888] hover:text-[#c9a84c] transition-colors duration-300 text-xs sm:text-sm"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -261,12 +262,12 @@ export default function Contact() {
             href="https://wa.me/2349160184596"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 rounded-full text-sm sm:text-base font-medium hover:bg-[#20b859] transition-all duration-300 hover:scale-105"
+            aria-label="Contact on WhatsApp"
+            className="flex items-center justify-center w-8 h-8 bg-[#25D366] text-white rounded-full hover:bg-[#20b859] transition-all duration-300 hover:scale-105"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
             </svg>
-            <span>WhatsApp</span>
           </a>
 
           {/* Instagram Button */}
@@ -274,14 +275,14 @@ export default function Contact() {
             href="https://www.instagram.com/shigoshot/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-gradient-to-r from-[#833AB4] via-[#E4405F] to-[#F56040] text-white px-4 py-2 rounded-full text-sm sm:text-base font-medium hover:opacity-90 transition-all duration-300 hover:scale-105"
+            aria-label="Visit Instagram profile"
+            className="flex items-center justify-center w-8 h-8 bg-gradient-to-r from-[#833AB4] via-[#E4405F] to-[#F56040] text-white rounded-full hover:opacity-90 transition-all duration-300 hover:scale-105"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
               <circle cx="12" cy="12" r="5"/>
               <line x1="17" y1="7" x2="17.01" y2="7"/>
             </svg>
-            <span>Instagram</span>
           </a>
 
           {/* TikTok Button */}
@@ -289,12 +290,12 @@ export default function Contact() {
             href="https://www.tiktok.com/@shigoshot/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-[#010101] text-white px-4 py-2 rounded-full text-sm sm:text-base font-medium hover:bg-[#1a1a1a] transition-all duration-300 hover:scale-105 border border-white/20"
+            aria-label="Visit TikTok profile"
+            className="flex items-center justify-center w-8 h-8 bg-[#010101] text-white rounded-full hover:bg-[#1a1a1a] transition-all duration-300 hover:scale-105 border border-white/20"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
             </svg>
-            <span>TikTok</span>
           </a>
         </div>
 

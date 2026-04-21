@@ -32,7 +32,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       className="relative h-full"
     >
       <motion.div
-        className="relative p-4 sm:p-5 md:p-8 overflow-hidden h-full flex flex-col"
+        className="relative p-5 sm:p-6 md:p-8 overflow-hidden h-full flex flex-col"
         animate={{
           background: isHovered ? '#1c1c1c' : '#0e0e0e',
           borderColor: isHovered ? '#2a2a2a' : '#1a1a1a',
@@ -53,7 +53,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
         {/* Quote Text */}
         <blockquote 
-          className="relative z-10 font-garamond text-[14px] sm:text-[15px] md:text-[16px] italic text-cream mb-3 pt-5 leading-relaxed flex-1"
+          className="relative z-10 font-garamond text-[15px] sm:text-[16px] md:text-[17px] italic text-cream mb-3 pt-5 leading-relaxed flex-1"
           style={{ wordBreak: 'break-word', hyphens: 'auto' }}
         >
           "{testimonial.quote}"
@@ -141,7 +141,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
 
   return (
     <section className="w-full py-12 sm:py-16 md:py-24 bg-[#080808]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-20">
+      <div className="w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-20">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -167,7 +167,7 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
         </motion.div>
 
         {/* DESKTOP & TABLET VIEW — Grid */}
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 w-full">
           {testimonials.map((testimonial) => (
             <TestimonialCard key={testimonial._id} testimonial={testimonial} />
           ))}
@@ -192,29 +192,13 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
               {testimonials.map((testimonial) => (
                 <div
                   key={testimonial._id}
-                  className="w-full flex-shrink-0 px-1"
+                  className="w-full flex-shrink-0 px-0"
                 >
                   <TestimonialCard testimonial={testimonial} />
                 </div>
               ))}
             </motion.div>
           </div>
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-6 h-6 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-[#c9a84c] hover:text-black transition-all z-10 text-xs"
-            aria-label="Previous testimonial"
-          >
-            ←
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 w-6 h-6 rounded-full bg-black/60 border border-white/20 text-white flex items-center justify-center hover:bg-[#c9a84c] hover:text-black transition-all z-10 text-xs"
-            aria-label="Next testimonial"
-          >
-            →
-          </button>
 
           {/* Dot Indicators */}
           <div className="flex justify-center gap-1.5 mt-5">

@@ -244,7 +244,7 @@ export default function Navbar() {
                   background: 'none',
                   border: 'none',
                   color: 'white',
-                  fontSize: '42px',
+                  fontSize: 'clamp(28px, 6vw, 42px)',
                   fontWeight: 700,
                   cursor: 'pointer',
                   fontFamily: 'Montserrat, sans-serif',
@@ -285,7 +285,7 @@ export default function Navbar() {
       <style jsx global>{`
         @media (max-width: 767px) {
           .navbar-container {
-            padding: 0 24px !important;
+            padding: 0 0 !important;
           }
         }
       `}</style>

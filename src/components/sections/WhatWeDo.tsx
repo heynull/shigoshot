@@ -107,7 +107,7 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
         borderTopLeftRadius: '40px',
         borderTopRightRadius: '40px',
       }}
-      className="pt-10 pb-10 px-2 md:pt-[70px] md:pb-[50px] md:px-6"
+      className="pt-4 pb-4 px-0 md:pt-[70px] md:pb-[50px] md:px-6"
     >
       {/* Header */}
       <motion.div
@@ -139,7 +139,7 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
       </motion.div>
 
       {/* 2-column card grid - responsive using Tailwind */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-2 md:px-20 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-0 md:px-20 md:max-w-6xl md:mx-auto">
         {services.map((service, index) => {
           const photo = displayPhotos[index]
           const isHovered = hoveredIndex === index
@@ -222,12 +222,13 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
               }} />
 
               {/* Card Content */}
-              <div style={{
+              <div 
+                className="p-4 md:p-7"
+                style={{
                 position: 'absolute',
                 bottom: 0,
                 left: 0,
                 right: 0,
-                padding: '28px',
                 transform: isHovered ? 'translateY(0)' : 'translateY(6px)',
                 transition: 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)',
               }}>

@@ -652,3 +652,124 @@ section {
     padding-bottom: 120px !important;
   }
 }
+
+/* Reduce mobile horizontal spacing by ~50% for all sections except hero and footer */
+@media (max-width: 768px) {
+  /* Target all section containers */
+  section:not(#home):not(footer) > div,
+  section:not(#home):not(footer) .container,
+  section:not(#home):not(footer) .max-w-7xl,
+  section:not(#home):not(footer) .max-w-6xl {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  
+  /* Specifically target What We Do grid */
+  .what-we-do-section .grid,
+  .grid.grid-cols-1.md\:grid-cols-2 {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  
+  /* Target Portfolio Grid */
+  .portfolio-grid-container,
+  .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-3 {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  
+  /* Target Testimonials section */
+  .testimonials-section > div {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  
+  /* Target Contact section */
+  #contact > div {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
+
+/* Increase body text weight for better readability */
+body, 
+p, 
+li, 
+span:not(h1 span):not(h2 span):not(h3 span),
+.text-fluid-body,
+.description-text,
+.testimonial-quote,
+blockquote,
+.contact-text,
+label,
+input,
+textarea,
+select,
+button:not(.nav-button) {
+  font-weight: 500 !important;
+}
+
+/* Make specific elements slightly heavier */
+.testimonial-quote,
+blockquote {
+  font-weight: 500 !important;
+}
+
+/* Keep headings bold as they are */
+h1, h2, h3, h4, .font-bold {
+  font-weight: 700 !important;
+}
+
+/* Keep small labels and metadata lighter for hierarchy */
+.small-text,
+.eyebrow-text,
+.category-tag,
+.text-muted {
+  font-weight: 400 !important;
+}
+
+/* On mobile, make body text even slightly heavier for readability */
+@media (max-width: 768px) {
+  body, p, li, .text-fluid-body, .description-text {
+    font-weight: 500 !important;
+  }
+}
+
+/* ========================================
+   FONT WEIGHT OVERRIDES FOR READABILITY
+   Increase weight for body text, descriptions, and form labels
+   Keep contact buttons and phone number lighter
+   ======================================== */
+
+/* Make body text bolder for better readability */
+.about-text p,
+.description-text,
+.about-description,
+section p:not(.contact-text):not(.phone-number),
+.form-field label,
+input,
+textarea,
+select {
+  font-weight: 500 !important;
+}
+
+/* Keep contact buttons and phone number normal weight */
+.contact-buttons a,
+.phone-number,
+.social-button {
+  font-weight: 400 !important;
+}
+
+/* Specific targeting for About section */
+.about-section .text-gray-600,
+.about-section p {
+  font-weight: 500 !important;
+}
+
+/* Keep small metadata light */
+.text-muted,
+.text-fluid-label,
+.category-tag,
+.eyebrow-text {
+  font-weight: 400 !important;
+}

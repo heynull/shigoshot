@@ -133,6 +133,7 @@ export default function About({ photographerImage }: AboutProps) {
             fontSize: 'clamp(14px, 2vw, 15px)',
             lineHeight: 1.8,
             marginBottom: 'clamp(12px, 2vw, 20px)',
+            fontWeight: 500,
           }}>
             With over a decade behind the lens, I've developed 
             a visual language rooted in authenticity and emotion. 
@@ -146,6 +147,7 @@ export default function About({ photographerImage }: AboutProps) {
             fontSize: 'clamp(13px, 1.8vw, 14px)',
             lineHeight: 1.8,
             marginBottom: 'clamp(20px, 3vw, 36px)',
+            fontWeight: 500,
           }}>
             Based in Lagos, Nigeria — working worldwide. Every 
             session is a collaboration, every frame a conversation 
