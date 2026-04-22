@@ -139,7 +139,7 @@ export default function WhatWeDo({ photos = [] }: WhatWeDoProps) {
       </motion.div>
 
       {/* 2-column card grid - responsive using Tailwind */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-0 md:px-20 md:max-w-6xl md:mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 px-1 md:px-20 md:max-w-6xl md:mx-auto">
         {services.map((service, index) => {
           const photo = displayPhotos[index]
           const isHovered = hoveredIndex === index

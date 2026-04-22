@@ -815,3 +815,64 @@ select {
     font-size: 11px !important;
   }
 }
+
+/* ========================================
+   MOBILE-ONLY: REDUCE PADDING
+   Desktop padding unchanged. Hero, About, Footer excluded.
+   ======================================== */
+@media (max-width: 768px) {
+  /* Main tag padding: from 16px to 8px */
+  main {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  
+  /* All sections: set to px-4 (16px) */
+  section:not(#home):not(.about-section):not(footer) {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  
+  /* Reduce inner content padding by ~50% in each section */
+  /* What We Do inner grid */
+  .what-we-do-section .grid,
+  section:not(#home):not(.about-section) .grid {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+  
+  /* Portfolio inner grid */
+  .portfolio-grid-container,
+  section:not(#home):not(.about-section) .grid-cols-1 {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+  
+  /* Testimonials inner container */
+  .testimonials-section > div,
+  section:not(#home):not(.about-section) .max-w-7xl {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+  
+  /* Contact section inner container */
+  #contact > div {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+}
+
+/* DEBUG: Remove ALL padding/margin on mobile to find culprit */
+@media (max-width: 768px) {
+  * {
+    /* outline: 1px solid red !important;  */
+    /* Shows all element boxes */
+  }
+  
+  section, main, div, article {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
