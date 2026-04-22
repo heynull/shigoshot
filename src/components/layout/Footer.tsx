@@ -1,152 +1,118 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
-
-  const linkStyle = {
-    color: '#aaa',
-    fontSize: '14px',
-    textDecoration: 'none',
-    padding: '6px 0',
-    display: 'block',
-    transition: 'color 0.2s ease',
-  }
-
-  const headingStyle = {
-    fontSize: '11px',
-    letterSpacing: '0.3em',
-    textTransform: 'uppercase' as const,
-    color: '#666',
-    marginBottom: '12px',
-    fontWeight: 500,
-  }
+  const pathname = usePathname()
+  const isWorkPage = pathname === '/work'
 
   return (
     <footer style={{ backgroundColor: '#080808', width: '100%' }}>
-      <div className="px-6 md:px-10 lg:px-20 pt-12 pb-4">
-        
-        {/* Grid: 1 col mobile, 2 col tablet, 4 col desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          
-          {/* Col 1 - Stay Updated */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-            <p style={headingStyle}>Stay Updated</p>
-            <div className="flex w-full max-w-xs">
-              <input
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                style={{
-                  flex: 1, minWidth: 0,
-                  background: '#1a1a1a',
-                  border: '1px solid #2a2a2a',
-                  borderRight: 'none',
-                  color: 'white',
-                  padding: '11px 14px',
-                  fontSize: '13px',
-                  borderRadius: '6px 0 0 6px',
-                  outline: 'none',
-                }}
-              />
-              <button style={{
-                flexShrink: 0,
-                background: '#c9a84c',
-                color: '#000',
-                border: 'none',
-                padding: '11px 14px',
-                fontSize: '12px',
-                fontWeight: 600,
-                borderRadius: '0 6px 6px 0',
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-              }}>
-                Subscribe
-              </button>
+      {/* Only show full footer on homepage (not on /work page) */}
+      {!isWorkPage && (
+        <div className="px-6 md:px-10 lg:px-20 pt-12 pb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            {/* Column 1 — Location Info */}
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+              <p className="text-[11px] tracking-[0.3em] uppercase text-[#888] mb-5 font-medium">
+                Location
+              </p>
+              <div className="space-y-2">
+                {['Available Worldwide', 'Est. 2020', 'Lagos, Nigeria'].map((item) => (
+                  <p key={item} className="text-[#aaa] text-sm leading-relaxed">
+                    {item}
+                  </p>
+                ))}
+              </div>
             </div>
-            <div style={{ marginTop: '16px' }} className="text-center lg:text-left">
-              {['Available Worldwide', 'Est. 2020', 'Lagos, Nigeria'].map(t => (
-                <p key={t} style={{ color: '#555', fontSize: '12px', lineHeight: '1.8' }}>
-                  {t}
-                </p>
-              ))}
-            </div>
-          </div>
 
-          {/* Col 2 - Explore */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-            <p style={headingStyle}>Explore</p>
-            <div className="flex flex-col">
-              {['Home', 'Portfolio', 'Services', 'Contact'].map(item => (
-                <Link
-                  key={item}
-                  href={item === 'Home' ? '/' : `#${item.toLowerCase()}`}
-                  style={linkStyle}
-                  onMouseEnter={e => e.currentTarget.style.color = '#c9a84c'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#aaa'}
-                >
-                  {item}
-                </Link>
-              ))}
+            {/* Column 2 — Explore */}
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+              <p className="text-[11px] tracking-[0.3em] uppercase text-[#888] mb-5 font-medium">
+                Explore
+              </p>
+              <div className="flex flex-col gap-2">
+                {['Portfolio', 'Services', 'Contact'].map((item) => (
+                  <Link
+                    key={item}
+                    href={item === 'Portfolio' ? '/work' : `#${item.toLowerCase()}`}
+                    className="text-[#aaa] text-sm py-1 hover:text-[#c9a84c] transition-colors"
+                  >
+                    {item}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Col 3 - Services */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-            <p style={headingStyle}>Services</p>
-            <div className="flex flex-col">
-              {['Portrait', 'Wedding', 'Commercial', 'Fine Art'].map(item => (
-                <Link
-                  key={item}
-                  href="#work"
-                  style={linkStyle}
-                  onMouseEnter={e => e.currentTarget.style.color = '#c9a84c'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#aaa'}
-                >
-                  {item}
-                </Link>
-              ))}
+            {/* Column 3 — Services */}
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+              <p className="text-[11px] tracking-[0.3em] uppercase text-[#888] mb-5 font-medium">
+                Services
+              </p>
+              <div className="flex flex-col gap-2">
+                {['Portrait', 'Wedding', 'Commercial'].map((item) => (
+                  <Link
+                    key={item}
+                    href="#services"
+                    className="text-[#aaa] text-sm py-1 hover:text-[#c9a84c] transition-colors"
+                  >
+                    {item}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Col 4 - Connect */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-            <p style={headingStyle}>Connect</p>
-            <div className="flex flex-col">
-              {[
-                { label: 'Instagram', href: 'https://www.instagram.com/shigoshot/' },
-                { label: 'TikTok', href: 'https://www.tiktok.com/@shigoshot/' },
-                { label: 'WhatsApp', href: 'https://wa.me/2349160184596' },
-              ].map(item => (
+            {/* Column 4 — Connect with icons */}
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+              <p className="text-[11px] tracking-[0.3em] uppercase text-[#888] mb-5 font-medium">
+                Connect
+              </p>
+              <div className="flex flex-col gap-3">
                 <a
-                  key={item.label}
-                  href={item.href}
+                  href="https://www.instagram.com/shigoshot/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={linkStyle}
-                  onMouseEnter={e => e.currentTarget.style.color = '#c9a84c'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#aaa'}
+                  className="flex items-center gap-3 text-[#aaa] text-sm py-1 hover:text-[#c9a84c] transition-colors"
                 >
-                  {item.label}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="17" y1="7" x2="17.01" y2="7"/>
+                  </svg>
+                  Instagram
                 </a>
-              ))}
+                <a
+                  href="https://www.tiktok.com/@shigoshot/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-[#aaa] text-sm py-1 hover:text-[#c9a84c] transition-colors"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+                  </svg>
+                  TikTok
+                </a>
+                <a
+                  href="https://wa.me/2349160184596"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-[#aaa] text-sm py-1 hover:text-[#c9a84c] transition-colors"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                  </svg>
+                  WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Copyright — always visible */}
-      <div style={{
-        borderTop: '1px solid #2a2a2a',
-        marginTop: '32px',
-        padding: '20px 24px',
-        textAlign: 'center',
-        width: '100%',
-        display: 'block',
-      }}>
-        <p style={{ color: '#666', fontSize: '12px', letterSpacing: '0.1em' }}>
+      {/* Copyright bar — always visible on all pages */}
+      <div className="border-t border-[#2a2a2a] px-6 py-5 text-center">
+        <p className="text-[#666] text-xs tracking-wide">
           © 2026 ShigoShots. All rights reserved.
         </p>
       </div>

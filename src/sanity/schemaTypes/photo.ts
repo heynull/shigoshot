@@ -28,11 +28,10 @@ export const photo = defineType({
       options: {
         list: [
           {title: 'Portrait', value: 'portrait'},
-          {title: 'Landscape', value: 'landscape'},
-          {title: 'Urban', value: 'urban'},
-          {title: 'Fashion', value: 'fashion'},
-          {title: 'Lifestyle', value: 'listyle'},
+          {title: 'Lifestyle', value: 'lifestyle'},
           {title: 'Wedding', value: 'wedding'},
+          {title: 'Commercial', value: 'commercial'},
+          {title: 'Documentary', value: 'documentary'},
         ],
       },
     }),
