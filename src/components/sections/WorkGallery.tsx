@@ -61,16 +61,11 @@ export default function WorkGallery({ photos }: { photos: any[] }) {
         {/* Back link */}
         <a
           href="/"
+          className="relative z-10 inline-flex items-center gap-2 bg-black/40 backdrop-blur-sm text-[#c9a84c] text-xs sm:text-sm font-medium tracking-wider uppercase mt-4 mb-6 px-3 py-1.5 rounded-full hover:bg-[#c9a84c] hover:text-black transition-all"
           style={{
-            color: '#c9a84c',
-            fontSize: '12px',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
+            letterSpacing: '0.2em',
             textDecoration: 'none',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            marginBottom: '32px',
+            marginTop: '20px',
           }}
         >
           ← Back to Home

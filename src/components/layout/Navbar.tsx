@@ -24,18 +24,50 @@ export default function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
-  const handleNavClick = (href: string) => {
-    const target = document.querySelector(href)
-    if (target) {
-      const top = target.getBoundingClientRect().top + window.scrollY - 72
-      window.scrollTo({ top, behavior: 'smooth' })
+  // Handle scrolling after page navigation with hash
+  useEffect(() => {
+    const hash = window.location.hash
+    if (hash && (hash === '#about' || hash === '#services' || hash === '#contact')) {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const target = document.querySelector(hash)
+        if (target) {
+          const top = target.getBoundingClientRect().top + window.scrollY - 72
+          window.scrollTo({ top, behavior: 'smooth' })
+        }
+      }, 100)
     }
-    setMobileOpen(false)
+  }, [])
+
+  const handleNavClick = (href: string) => {
+    // For Portfolio (external link)
+    if (href === '/work') {
+      window.location.href = href
+      setMobileOpen(false)
+      return
+    }
+    
+    // For section links (#about, #services, #contact)
+    if (href.startsWith('#')) {
+      // If we're not on the homepage, navigate with the hash
+      if (window.location.pathname !== '/') {
+        window.location.href = '/' + href
+        // After navigation, the useEffect above will handle scrolling
+      } else {
+        // Already on homepage, just scroll
+        const target = document.querySelector(href)
+        if (target) {
+          const top = target.getBoundingClientRect().top + window.scrollY - 72
+          window.scrollTo({ top, behavior: 'smooth' })
+        }
+      }
+      setMobileOpen(false)
+    }
   }
 
   const navLinks = [
     { label: 'About', href: '#about' },
-    { label: 'Portfolio', href: '#work' },
+    { label: 'Portfolio', href: '/work' },
     { label: 'Services', href: '#services' },
     { label: 'Contact', href: '#contact' },
   ]

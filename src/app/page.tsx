@@ -115,7 +115,9 @@ export default async function Home() {
           <Hero />
 
           {/* About Section */}
-          <About photographerImage={siteSettings?.photographerImage} />
+          <section id="about">
+            <About photographerImage={siteSettings?.photographerImage} />
+          </section>
 
           {/* What We Do Section */}
           <section id="services">

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function CTABanner() {
   return (
-    <section className="bg-[#111111] text-center px-6 md:px-20 py-16 md:py-24">
+  <section className="bg-[#111111] text-center px-6 md:px-20 py-16 md:py-24 my-0 !mx-8 md:!mx-auto">
       <div className="mx-auto max-w-3xl">
         {/* Fade + Scale In */}
         <motion.div

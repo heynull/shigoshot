@@ -862,14 +862,12 @@ select {
   }
 }
 
-/* DEBUG: Remove ALL padding/margin on mobile to find culprit */
+/* DEBUG: Target only problematic containers, not all elements */
 @media (max-width: 768px) {
-  * {
-    /* outline: 1px solid red !important;  */
-    /* Shows all element boxes */
-  }
-  
-  section, main, div, article {
+  .container, 
+  .max-w-7xl, 
+  .max-w-6xl,
+  main > div {
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin-left: 0 !important;
