@@ -25,9 +25,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://shigoshots.com'),
+  metadataBase: new URL('https://shigoshot.vercel.app/'),
   title: {
-    default: 'ShigoShots — Photography',
+    default: 'ShigoShot — Photography',
     template: '%s | ShigoShots'
   },
   description:

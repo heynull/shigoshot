@@ -44,6 +44,16 @@ function checkRateLimit(ip: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
+
+    // ADD THE CHECK RIGHT HERE (after try {)
+    if (!process.env.RESEND_API_KEY) {
+      console.warn('Resend API key missing. Emails will not be sent.')
+      return NextResponse.json(
+        { success: false, message: 'Email service not configured yet' },
+        { status: 200 }
+      )
+    }
+    
     // Lazy load Resend to avoid build-time errors if API key is missing
     const { resend } = await import('@/lib/resend')
 
@@ -78,7 +88,7 @@ export async function POST(request: NextRequest) {
     }
 
     const data = validation.data
-    const studioEmail = process.env.CONTACT_EMAIL || 'noreply@shigoshots.com'
+    const studioEmail = process.env.CONTACT_EMAIL || 'segunajila@gmail.com'
 
     // Email A: To studio owner
     const studioEmailHtml = `
@@ -161,13 +171,14 @@ export async function POST(request: NextRequest) {
             <div class="content">
               <p>Dear <span class="gold-accent">${data.firstName}</span>,</p>
 
-              <p>We've received your inquiry and truly appreciate you reaching out to ShigoShots Studio. Your message means a lot to us.</p>
+              <p>We've received your inquiry and truly appreciate you reaching out to ShigoShot Studio.</p>
 
-              <p>Our creative team will review your project details and respond within <span class="gold-accent">48 hours</span> with next steps and availability.</p>
+              <p>Our creative team will review your project details and respond within <span class="gold-accent">as soon as possible</span> with next steps and availability.</p>
 
               <p>In the meantime, feel free to reach out directly if you have any urgent questions.</p>
 
-              <p>—<br/>ShigoShots<br/>Photography</p>
+              <p>—<br/>Best regards,</p>
+              <p>—<br/>ShigoShots</p>
             </div>
 
             <div class="footer">
@@ -182,15 +193,15 @@ export async function POST(request: NextRequest) {
     // Send both emails via Resend
     const [studioResponse, senderResponse] = await Promise.all([
       resend.emails.send({
-        from: 'ShigoShots <onboarding@resend.dev>',
-        to: process.env.CONTACT_EMAIL || 'mosesajila@gmail.com',
+        from: 'ShigoShot <onboarding@resend.dev>',
+        to: process.env.CONTACT_EMAIL || 'segunajila@gmail.com',
         subject: `New Inquiry — ${data.projectType} from ${data.firstName} ${data.lastName}`,
         html: studioEmailHtml,
       }),
       resend.emails.send({
         from: 'ShigoShots <onboarding@resend.dev>',
         to: data.email,
-        subject: 'Your inquiry has been received — ShigoShots Studio',
+        subject: 'Your inquiry has been received — ShigoShot Studio',
         html: senderEmailHtml,
       }),
     ])
