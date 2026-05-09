@@ -259,7 +259,7 @@ export default function Contact() {
 
           {/* WhatsApp Button */}
           <a
-            href="https://wa.me/2349160184596"
+            href="https://wa.me/2349015159470"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contact on WhatsApp"

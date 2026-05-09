@@ -69,9 +69,9 @@ const services = [
     description: 'We create striking portraits and editorial images that define your brand identity. Every session is crafted with intention, light, and emotion.',
   },
   {
-    tag: 'Events',
-    title: 'Wedding & Events',
-    description: 'Timeless wedding photography capturing every stolen glance and joyful tear. We document your day so nothing is forgotten.',
+    tag: 'Afrofuturist ',
+    title: 'Afrofuturist ',
+    description: 'Bold visual narratives blending African heritage, futuristic aesthetics, and imaginative storytelling.',
   },
   {
     tag: 'Commercial',
@@ -79,9 +79,9 @@ const services = [
     description: 'Professional photography for businesses and campaigns. We deliver images that communicate your brand value and stop the scroll.',
   },
   {
-    tag: 'Fine Art',
-    title: 'Fine Art & Prints',
-    description: 'Limited edition fine art photography as museum-quality prints. Hand-edited and personally signed — made to live on your walls forever.',
+    tag: 'Lifestyle',
+    title: 'Lifestyle',
+    description: 'Lifestyle photography focused on atmosphere, emotion, and the beauty found in ordinary moments.', 
   },
 ]
 

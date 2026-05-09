@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://shigoshot.vercel.app/'),
   title: {
     default: 'ShigoShot — Photography',
-    template: '%s | ShigoShots'
+    template: '%s | ShigoShot'
   },
   description:
     "Professional photography portfolio — portraits, weddings, editorial and fine art photography based in Lagos, Nigeria.",
@@ -45,41 +45,41 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: "ShigoShots",
-      url: "https://shigoshots.com"
+      name: "ShigoShot",
+      url: "https://shigoshot.vercel.app/"
     }
   ],
-  creator: "ShigoShots",
-  publisher: "ShigoShots",
+  creator: "ShigoShot",
+  publisher: "ShigoShot",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   openGraph: {
-    title: "ShigoShots — Photography",
+    title: "ShigoShot — Photography",
     description:
       "Professional photography portfolio — portraits, weddings, editorial and fine art photography based in Lagos, Nigeria.",
     type: "website",
-    url: "https://shigoshots.com",
-    siteName: "ShigoShots",
+    url: "https://shigoshot.vercel.app/",
+    siteName: "ShigoShot",
     locale: "en_US",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "ShigoShots — Photography",
+        alt: "ShigoShot — Photography",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ShigoShots — Photography",
+    title: "ShigoShot — Photography",
     description: "Professional photography portfolio — portraits, weddings, editorial and fine art photography",
     images: ["/og-image.jpg"],
-    creator: "@shigoshots",
+    creator: "@ShigoShot",
   },
   robots: {
     index: true,
@@ -96,7 +96,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "ShigoShots",
+    title: "ShigoShot",
   },
   other: {
     'X-DNS-Prefetch-Control': 'on',
@@ -118,16 +118,16 @@ export default function RootLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'ShigoShots',
+    name: 'ShigoShot',
     jobTitle: 'Professional Photographer',
-    url: 'https://shigoshots.com',
+    url: 'https://shigoshot.vercel.app/',
     sameAs: [
-      'https://instagram.com/shigoshots',
-      'https://twitter.com/shigoshots',
+      'https://instagram.com/shigoshot',
+      'https://twitter.com/shigoshot',
     ],
-    description: 'Professional photography portfolio — portraits, weddings, editorial and fine art photography based in Lagos, Nigeria',
+    description: 'Professional photography, videography portfolio — portraits, weddings, editorial and fine art photography based in Lagos, Nigeria',
     image: '/og-image.jpg',
-    email: 'hello@shigoshots.com',
+    email: 'segunajila@gmail.com',
     areaServed: 'Worldwide',
     expertise: [
       'Portrait Photography',

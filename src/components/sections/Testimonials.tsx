@@ -21,8 +21,8 @@ const CARD_VARIANTS: Variants = {
 }
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
-  const [isHovered, setIsHovered] = useState(false)
-  const [isAvatarLoading, setIsAvatarLoading] = useState(true)
+  const [isHovered, setIsHovered] = React.useState(false)
+  const [isAvatarLoading, setIsAvatarLoading] = React.useState(true)
 
   return (
     <motion.div
@@ -59,7 +59,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           "{testimonial.quote}"
         </blockquote>
 
-        {/* Author Info - Fixed width to prevent text break */}
+        {/* Author Info */}
         <div className="flex items-center gap-3 sm:gap-4 mt-2 pt-3 border-t border-muted/20">
           {testimonial.avatar && (
             <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden flex-shrink-0">
@@ -70,9 +70,8 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
                 src={urlFor(testimonial.avatar).url()}
                 alt={testimonial.name}
                 fill
-                className="object-cover grayscale"
+                className="object-cover"
                 sizes="44px"
-                style={{ filter: 'grayscale(70%)' }}
                 onLoad={() => setIsAvatarLoading(false)}
               />
             </div>
@@ -81,7 +80,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             <p className="font-garamond text-[14px] sm:text-[15px] md:text-[16px] font-semibold text-cream leading-tight">
               {testimonial.name}
             </p>
-            <p className="text-[8px] sm:text-[9px] md:text-[10px] text-muted tracking-wide uppercase leading-tight break-words" style={{ whiteSpace: 'normal', wordBreak: 'keep-all' }}>
+            <p className="text-[8px] sm:text-[9px] md:text-[10px] text-muted tracking-wide uppercase leading-tight break-words">
               {testimonial.role}
               {testimonial.company && ` • ${testimonial.company}`}
             </p>
@@ -175,7 +174,6 @@ export default function Testimonials({ testimonials }: TestimonialsProps) {
 
         {/* MOBILE VIEW — Carousel */}
         <div className="md:hidden relative px-0">
-          {/* Carousel Container */}
           <div
             ref={carouselRef}
             className="overflow-hidden touch-pan-y"

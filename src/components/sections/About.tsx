@@ -135,7 +135,7 @@ export default function About({ photographerImage }: AboutProps) {
             marginBottom: 'clamp(12px, 2vw, 20px)',
             fontWeight: 500,
           }}>
-            With over a decade behind the lens, I've developed 
+            With several years of experience behind the lens, I've developed 
             a visual language rooted in authenticity and emotion. 
             My work spans intimate portraits, grand editorial 
             campaigns, and everything in between.
