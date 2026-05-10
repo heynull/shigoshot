@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: '%s | ShigoShot'
   },
   description:
-    "Professional photography portfolio — portraits, weddings, editorial and fine art photography based in Lagos, Nigeria.",
+    "ShigoShot is a distinguished visual storytelling brand, known for expertise in lifestyle photography, cinematic videography, and creative direction.",
   keywords: [
     "photography",
     "portrait photography",
