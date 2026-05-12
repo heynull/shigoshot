@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ShigoShot — Photography",
     description:
-      "Professional photography portfolio — portraits, weddings, editorial and fine art photography based in Lagos, Nigeria.",
+      "ShigoShot is a distinguished visual storytelling brand, known for expertise in lifestyle photography, cinematic videography, and creative direction.",
     type: "website",
     url: "https://shigoshot.vercel.app/",
     siteName: "ShigoShot",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ShigoShot — Photography",
-    description: "Professional photography portfolio — portraits, weddings, editorial and fine art photography",
+    description: "ShigoShot is a distinguished visual storytelling brand, known for expertise in lifestyle photography, cinematic videography, and creative direction.",
     images: ["/og-image.jpg"],
     creator: "@ShigoShot",
   },
@@ -125,7 +125,7 @@ export default function RootLayout({
       'https://instagram.com/shigoshot',
       'https://twitter.com/shigoshot',
     ],
-    description: 'Professional photography, videography portfolio — portraits, weddings, editorial and fine art photography based in Lagos, Nigeria',
+    description: 'ShigoShot is a distinguished visual storytelling brand, known for expertise in lifestyle photography, cinematic videography, and creative direction.',
     image: '/og-image.jpg',
     email: 'segunajila@gmail.com',
     areaServed: 'Worldwide',

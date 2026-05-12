@@ -69,19 +69,19 @@ const services = [
     description: 'We create striking portraits and editorial images that define your brand identity. Every session is crafted with intention, light, and emotion.',
   },
   {
-    tag: 'Afrofuturist ',
-    title: 'Afrofuturist ',
-    description: 'Bold visual narratives blending African heritage, futuristic aesthetics, and imaginative storytelling.',
-  },
-  {
-    tag: 'Commercial',
-    title: 'Commercial & Brand',
-    description: 'Professional photography for businesses and campaigns. We deliver images that communicate your brand value and stop the scroll.',
-  },
-  {
     tag: 'Lifestyle',
     title: 'Lifestyle',
     description: 'Lifestyle photography focused on atmosphere, emotion, and the beauty found in ordinary moments.', 
+  },
+  {
+    tag: 'Wedding',
+    title: 'Wedding & Events',
+    description: 'Documenting love, connection, and meaningful moments through elegant and heartfelt imagery.',
+  },
+  {
+    tag: 'Afrofuturist ',
+    title: 'Afrofuturist ',
+    description: 'Bold visual narratives blending African heritage, futuristic aesthetics, and imaginative storytelling.',
   },
 ]
 
